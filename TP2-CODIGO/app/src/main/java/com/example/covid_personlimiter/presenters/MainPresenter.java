@@ -30,4 +30,5 @@ public class MainPresenter {
         //Agregar sensor para el shake (contador en 0)
         //sensorManager.registerListener(listener: this, temperatureSensor);
     }
+
 }
