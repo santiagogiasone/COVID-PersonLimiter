@@ -1,13 +1,14 @@
-package com.example.covid_personlimiter;
+package com.example.covid_personlimiter.views;
 
 import android.app.Activity;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.presenters.MainPresenter;
 
 public class MainActivity extends Activity {
@@ -25,8 +26,6 @@ public class MainActivity extends Activity {
     //Presenter
     private MainPresenter presenter;
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,25 +36,14 @@ public class MainActivity extends Activity {
         buttonMinus = (Button)findViewById(R.id.buttonMinus);
 
         //Definicion de los textos variables de la app.
-        username = (TextView) findViewById(R.id.username);
+        username = (TextView) findViewById(R.id.mail);
         counter = (TextView) findViewById(R.id.counter);
         capacity = (TextView) findViewById(R.id.capacity);
         temperature = (TextView) findViewById(R.id.temperature);
 
         //Acceso al servicio de Sensores.
-        //presenter = new MainPresenter( activity: this);
-
-        /*
-        buttonMinus.setOnClickListener(v -> {
-            presenter.substract();
-        });
-
-        buttonPlus.setOnClickListener(v -> {
-            presenter.add();
-        });
-        */
+        presenter = new MainPresenter(this);
         presenter.setupSensorManager();
-
 
     }
 
@@ -72,6 +60,16 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        /*
+        buttonMinus.setOnClickListener(v -> {
+            counter = presenter.substract(counter);
+        });
+
+        buttonPlus.setOnClickListener(v -> {
+            counter = presenter.add(counter);
+        });
+         */
     }
 
     @Override

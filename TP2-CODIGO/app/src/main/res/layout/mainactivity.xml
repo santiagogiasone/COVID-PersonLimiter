@@ -56,17 +56,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <View
-        android:id="@+id/viewCounter"
-        android:layout_width="166dp"
-        android:layout_height="117dp"
-        android:layout_marginStart="127dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginBottom="147dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonPlus"
-        app:layout_constraintStart_toEndOf="@+id/buttonMinus" />
-
     <TextView
         android:id="@+id/temperature"
         android:layout_width="48dp"
@@ -84,7 +73,7 @@
         app:layout_constraintStart_toEndOf="@+id/textCapacity" />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/mail"
         android:layout_width="130dp"
         android:layout_height="22dp"
         android:layout_marginStart="299dp"
@@ -95,15 +84,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/counter"
-        android:layout_width="125dp"
-        android:layout_height="53dp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewCounter"
-        app:layout_constraintEnd_toEndOf="@+id/viewCounter"
-        app:layout_constraintStart_toStartOf="@+id/viewCounter"
-        app:layout_constraintTop_toTopOf="@+id/viewCounter" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -112,5 +92,15 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textWelcomeBack" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,4 +25,13 @@ public class LoggedInUser {
     public String getDisplayName() {
         return displayName;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
 }

@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".SignupActivity">
+    tools:context=".views.SignUpActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:background="@android:color/transparent"
-        app:navigationIcon="@drawable/ic_back"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:navigationIcon="@drawable/ic_back"></androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_below="@id/toolbar"
@@ -25,69 +25,35 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:scrollbarThumbHorizontal="@null"
             android:scrollbarThumbVertical="@null">
 
             <LinearLayout
-                android:layout_centerVertical="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:id="@+id/signup_image_layout"
-                    android:layout_gravity="center"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="8dp">
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_margin="1dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        app:srcCompat="@drawable/ic_plus" />
-                </RelativeLayout>
+                <ImageView
+                    android:layout_width="411dp"
+                    android:layout_height="99dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginRight="155dp"
+                    android:layout_marginBottom="0dp"
+                    app:srcCompat="@drawable/image_login" />
 
                 <TextView
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="16dp"
                     android:text="@string/text_signup_message"
                     android:textColor="#696969"
                     android:textSize="16sp"
-                    android:layout_marginBottom="16dp"
                     android:textStyle="bold" />
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/colorTextInputBackground"
-                    android:layout_margin="4dp"
-                    app:cardCornerRadius="24dp"
-                    app:cardElevation="0dp">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
-                        android:background="@android:color/transparent"
-                        android:drawableStart="@drawable/ic_mail"
-                        android:drawableLeft="@drawable/ic_mail"
-                        android:drawablePadding="12dp"
-                        android:hint="@string/hint_email"
-                        android:inputType="textEmailAddress"
-                        android:imeOptions="actionNext"
-                        android:minWidth="320dp"
-                        android:minHeight="45dp"
-                        android:singleLine="true" />
-                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -105,7 +71,7 @@
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_username"
+                            android:id="@+id/et_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -115,13 +81,14 @@
                             android:drawableStart="@drawable/ic_person"
                             android:drawableLeft="@drawable/ic_person"
                             android:drawablePadding="12dp"
-                            android:hint="@string/hint_username"
+                            android:hint="@string/hint_name"
                             android:imeOptions="actionNext"
                             android:minWidth="320dp"
                             android:minHeight="45dp"
                             android:singleLine="true" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -138,23 +105,98 @@
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_phone"
+                            android:id="@+id/et_lastname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
+                            android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            android:drawableStart="@drawable/ic_phone"
-                            android:drawableLeft="@drawable/ic_phone"
+                            android:drawableStart="@drawable/ic_person"
+                            android:drawableLeft="@drawable/ic_person"
                             android:drawablePadding="12dp"
-                            android:hint="@string/hint_phone"
+                            android:hint="@string/hint_lastname"
                             android:imeOptions="actionNext"
                             android:minWidth="320dp"
                             android:minHeight="45dp"
                             android:singleLine="true" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    app:cardBackgroundColor="@color/colorTextInputBackground"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_dni"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:drawableStart="@drawable/ic_person"
+                            android:drawableLeft="@drawable/ic_person"
+                            android:drawablePadding="12dp"
+                            android:hint="@string/hint_dni"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:minWidth="320dp"
+                            android:minHeight="45dp"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    app:cardBackgroundColor="@color/colorTextInputBackground"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:background="@android:color/transparent"
+                            android:drawableStart="@drawable/ic_mail"
+                            android:drawableLeft="@drawable/ic_mail"
+                            android:drawablePadding="12dp"
+                            android:hint="@string/hint_email"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
+                            android:minWidth="320dp"
+                            android:minHeight="45dp"
+                            android:singleLine="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -189,6 +231,7 @@
                             android:minHeight="45dp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -225,7 +268,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <Button
-                    android:id="@+id/button_signin"
+                    android:id="@+id/button_signup"
                     style="@style/Button1"
                     android:layout_width="342dp"
                     android:layout_height="wrap_content"
@@ -233,53 +276,20 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/button_sign_up" />
 
-                <LinearLayout
-                    android:id="@+id/social_layout"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/md_black_1000"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/text_signup_social_media" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_margin="8dp"
-                            app:srcCompat="@drawable/ic_facebook"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp" />
-
-                        <ImageView
-                            android:layout_margin="8dp"
-                            app:srcCompat="@drawable/ic_twitter"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp" />
-                    </LinearLayout>
-                </LinearLayout>
-
                 <TextView
-                    android:id="@+id/button_signup"
+                    android:id="@+id/signup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:textSize="13sp"
                     android:padding="8dp"
-                    android:text="@string/text_signup_terms" />
+                    android:text="@string/text_signup_terms"
+                    android:textSize="13sp" />
             </LinearLayout>
 
         </RelativeLayout>
 
 
     </ScrollView>
+
 </RelativeLayout>
