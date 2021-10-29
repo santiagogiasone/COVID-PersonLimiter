@@ -5,6 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/capacityReal"
+        android:layout_width="48dp"
+        android:layout_height="19dp"
+        android:layout_marginBottom="58dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textCapacityReal" />
+
     <Button
         android:id="@+id/buttonMinus"
         android:layout_width="80dp"
@@ -41,48 +49,64 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginBottom="65dp"
+        android:layout_marginBottom="112dp"
         android:text="Temperatura Actual: "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textCapacity"
+        android:id="@+id/textCapacidadLugar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginBottom="34dp"
-        android:text="Aforo Permitido: "
+        android:layout_marginBottom="140dp"
+        android:text="Capacidad Lugar:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/aforo"
+        android:layout_width="48dp"
+        android:layout_height="19dp"
+        android:layout_marginBottom="84dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textAforo" />
 
     <TextView
         android:id="@+id/temperature"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="65dp"
+        android:layout_marginBottom="112dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textTemperature" />
 
     <TextView
-        android:id="@+id/capacity"
+        android:id="@+id/capacityMax"
         android:layout_width="48dp"
-        android:layout_height="19dp"
-        android:layout_marginBottom="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="140dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textCapacity" />
+        app:layout_constraintStart_toEndOf="@+id/textCapacidadLugar" />
 
     <TextView
-        android:id="@+id/mail"
-        android:layout_width="130dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="299dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="302dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/textAforo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="84dp"
+        android:text="Aforo Permitido: "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textCapacityReal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="58dp"
+        android:text="Capacidad Real Actual:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
