@@ -3,7 +3,6 @@ package com.example.covid_personlimiter.views;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -41,25 +40,18 @@ public class MainActivity extends Activity {
         capacity = (TextView) findViewById(R.id.capacity);
         temperature = (TextView) findViewById(R.id.temperature);
 
-        //Acceso al servicio de Sensores.
+        //Instanciacion del presentador
         presenter = new MainPresenter(this);
         presenter.setupSensorManager();
 
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
+
+        presenter.iniciarSensores();
+
 
         /*
         buttonMinus.setOnClickListener(v -> {
@@ -72,22 +64,43 @@ public class MainActivity extends Activity {
          */
     }
 
+    public void setTemperature(String temperature)  {
+        this.temperature.setText(temperature);
+    }
+
+    public void resetCounter()  {
+        this.counter.setText("0");
+    }
+
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onRestart() {
+        presenter.iniciarSensores();
+        super.onRestart();
+    }
+
     @Override
     protected void onPause() {
+        presenter.pararSensores();
         super.onPause();
     }
 
     @Override
     protected void onStop() {
+        presenter.pararSensores();
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
+        presenter.pararSensores();
         super.onDestroy();
     }
-
-    //public void setTemperature(int temperature)  { this.temperature.setText(temperature.toString()) }
-
-
 }
