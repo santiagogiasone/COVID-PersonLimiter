@@ -17,20 +17,25 @@ public class LoginDataSource {
 
     public Result<LoggedInUser> login(String username, String password) {
 
+        HttpURLConnection urlConnection = null;
+
         try {
-            URL mUrl = new URL("http://so-unlam.net.ar/api/api/login");
-            HttpURLConnection urlConnection = (HttpURLConnection) mUrl.openConnection();
+            Log.d("RESPONSE", "HOLAAAAA");
+            URL mUrl = new URL( "https://so-unlam.net.ar/api/api/login");
+            urlConnection = (HttpURLConnection) mUrl.openConnection();
+            Log.d("RESPONSE", "ASDDDDDDDDDD");
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
             urlConnection.setRequestMethod("POST");
             urlConnection.setConnectTimeout(5000);
             urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            Log.d("RESPONSE", "WAAAAAAAAAA");
             urlConnection.connect();
-
+            Log.d("RESPONSE", "xd");
             int responseCode = urlConnection.getResponseCode();
-
+            Log.d("RESPONSE", "xddd");
             urlConnection.disconnect();
-
+            Log.d("RESPONSE", "xdddddd");
             if (responseCode != HttpURLConnection.HTTP_OK)
                 return new Result.Error(new Exception("Error logging in"));
 
@@ -42,12 +47,12 @@ public class LoginDataSource {
 
             while ((line = reader.readLine()) != null) {
                 buffer.append(line+"\n");
-                Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
+                Log.d("RESPONSE", "> " + line);   //here u ll get whole response...... :-)
 
             }
 
             String res = buffer.toString();
-            Log.d("Response: ", "> " + res);
+            Log.d("RESPONSE", "> " + res);
             // TODO: handle loggedInUser authentication
             LoggedInUser loggedUser =
                     new LoggedInUser(
@@ -57,6 +62,7 @@ public class LoginDataSource {
                             "xd2");
             return new Result.Success<>(loggedUser);
         } catch (Exception e) {
+            Log.d("RESPONSE", e.toString());
             return new Result.Error(new IOException("Error logging in", e));
         }
     }
