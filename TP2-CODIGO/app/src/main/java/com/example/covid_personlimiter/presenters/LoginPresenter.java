@@ -4,7 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.example.covid_personlimiter.data.model.UserModel;
+import com.example.covid_personlimiter.data.Result;
+import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.model.UserInterface;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.requests.LoginRequest;
@@ -12,6 +13,7 @@ import com.example.covid_personlimiter.model.responses.LoginResponse;
 import com.example.covid_personlimiter.model.services.LoginService;
 import com.example.covid_personlimiter.view.LoginViewInterface;
 
+import java.io.IOException;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -39,25 +41,30 @@ public class LoginPresenter implements LoginPresenterInterface {
 
     @Override
     public void doLogin(String email, String passwd) {
-        LoginRequest request = new LoginRequest();
-        request.setEmail(email);
-        request.setPassword(passwd);
-        Retrofit retrofit = retrofitObj.getRetrofitInstance();
-        LoginService loginService = retrofit.create(LoginService.class);
-        Call<LoginResponse> call = loginService.api_login(request);
-        Boolean isLoginSuccess = true;
-        call.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                Log.d("RESPONSE", "hola");
-                Log.d("RESPONSE", response.body().getSuccess().toString());
-            }
+        try {
+            LoginRequest request = new LoginRequest();
+            request.setEmail(email);
+            request.setPassword(passwd);
+            Retrofit retrofit = retrofitObj.getRetrofitInstance();
+            LoginService loginService = retrofit.create(LoginService.class);
+            Call<LoginResponse> call = loginService.api_login(request);
+            Boolean isLoginSuccess = true;
+            call.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    Log.d("RESPONSE", "hola");
+                    Log.d("RESPONSE", response.body().getSuccess().toString());
+                }
 
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.d("RESPONSE", "quemal");
-            }
-        });
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Log.d("RESPONSE", "quemal");
+                    Log.d("RESPONSE", t.toString());
+                }
+            });
+        } catch (Exception e)  {
+            Log.d("RESPONSE", e.toString());
+        }
     }
 
     @Override

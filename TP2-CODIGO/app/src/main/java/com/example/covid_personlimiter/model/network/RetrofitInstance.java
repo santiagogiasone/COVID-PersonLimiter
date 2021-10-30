@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitInstance {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://so-unlam.net.ar/api";
+    private static final String BASE_URL = "http://so-unlam.net.ar/api/";
 
     /**
      * Create an instance of Retrofit object

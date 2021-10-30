@@ -1,4 +1,4 @@
-package com.example.covid_personlimiter.data.model;
+package com.example.covid_personlimiter.model;
 
 import com.example.covid_personlimiter.model.UserInterface;
 
