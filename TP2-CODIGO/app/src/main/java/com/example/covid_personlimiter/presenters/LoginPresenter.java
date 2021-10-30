@@ -42,6 +42,8 @@ public class LoginPresenter implements LoginPresenterInterface {
     @Override
     public void doLogin(String email, String passwd) {
         try {
+
+            Log.d("RESPONSE", "buenas");
             LoginRequest request = new LoginRequest();
             request.setEmail(email);
             request.setPassword(passwd);
@@ -49,17 +51,21 @@ public class LoginPresenter implements LoginPresenterInterface {
             LoginService loginService = retrofit.create(LoginService.class);
             Call<LoginResponse> call = loginService.api_login(request);
             Boolean isLoginSuccess = true;
+            Log.d("RESPONSE", "buenas2");
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    Log.d("RESPONSE", "hola");
-                    Log.d("RESPONSE", response.body().getSuccess().toString());
+                    if (response.isSuccessful()) {
+                        iLoginView.onLoginResult(response.body().getSuccess(), "Cuenta Autenticada Exitosamente");
+                    }
+                    else {
+                        iLoginView.onLoginResult(false, "Credenciales Incorrectas");
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    Log.d("RESPONSE", "quemal");
-                    Log.d("RESPONSE", t.toString());
+                    iLoginView.onLoginResult(false, "Se encontro un error en el sistema, contactar con un administrador");
                 }
             });
         } catch (Exception e)  {

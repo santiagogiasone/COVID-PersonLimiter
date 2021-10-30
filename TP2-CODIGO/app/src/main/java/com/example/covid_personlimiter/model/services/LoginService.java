@@ -9,6 +9,6 @@ import retrofit2.http.Body;
 
 public interface LoginService {
 
-    @POST("/api/login")
+    @POST("api/login")
     Call<LoginResponse> api_login(@Body LoginRequest request);
 }

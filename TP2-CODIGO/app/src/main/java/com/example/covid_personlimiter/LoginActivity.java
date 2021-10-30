@@ -54,14 +54,14 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     }
 
     @Override
-    public void onLoginResult(Boolean result, int code) {
+    public void onLoginResult(Boolean success, String msg) {
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
         btnLogin.setEnabled(true);
-        if (result){
-            Toast.makeText(this,"Login Success",Toast.LENGTH_SHORT).show();
+        if (success){
+            Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
         }
         else
-            Toast.makeText(this,"Login Fail, code = " + code,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();
     }
 
     @Override
