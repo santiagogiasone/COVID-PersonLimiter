@@ -62,6 +62,7 @@ public class MainPresenter implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         String txt = "";
+        float temperature;
         synchronized (this)
         {
             Log.d("sensor", event.sensor.getName());
@@ -80,11 +81,38 @@ public class MainPresenter implements SensorEventListener {
                     break;
 
                 case Sensor.TYPE_AMBIENT_TEMPERATURE :
-                    txt += event.values[0] + " C \n";
+                    temperature = event.values[0];
+                    txt += temperature + "°C";
                     activity.setTemperature(txt);
+                    activity.setAforo(calcularAforo(temperature));
+                    activity.setCapacityReal(calcularCapacityReal(temperature,activity.getCapacidadMaxima()));
                     break;
             }
         }
+    }
+
+    private String calcularCapacityReal(float temperature, int capacidadMaxima) {
+        if (temperature < 5) {
+            //Aforo del 30% cuando la temperatura es menor a 5°C
+            return Integer.toString((int) ((float) capacidadMaxima * 0.3));
+        } else if (temperature <= 15) {
+            //Aforo del 50% cuando la temperatura esta entre 5°C y 15°C
+            return Integer.toString((int) ((float) capacidadMaxima * 0.5));
+        } else
+            //Aforo del 100% cuando la temperatura es mayor a 15°C
+            return Integer.toString((int) ((float) capacidadMaxima * 1));
+    }
+
+    private String calcularAforo(float temperature) {
+        if (temperature < 5) {
+            //Aforo del 30% cuando la temperatura es menor a 5°C
+            return "30%";
+        } else if (temperature <= 15) {
+            //Aforo del 50% cuando la temperatura esta entre 5°C y 15°C
+            return "50%";
+        } else
+            //Aforo del 100% cuando la temperatura es mayor a 15°C
+            return "100%";
     }
 
     @Override

@@ -26,10 +26,7 @@ public class MainActivity extends Activity {
 
     //Contador
     private Integer contadorPersonas = 0;
-    private Integer capacidadMaxima = 300;
-    private Integer temperaturaActual;
-    private Integer aforoActual;
-    private Integer capacidadRealActual = 4;
+    private final Integer capacidadMaxima = 10;
 
     //Presenter
     private MainPresenter presenter;
@@ -56,15 +53,46 @@ public class MainActivity extends Activity {
         capacityMax.setText(" "+capacidadMaxima.toString());
 
         temperature = (TextView) findViewById(R.id.temperature);
-
         aforo = (TextView) findViewById(R.id.aforo);
-
         capacityReal = (TextView) findViewById(R.id.capacityReal);
 
+/*
+        String txt = "";
+        float temperature = 10;
+        txt += temperature + "°C";
+        setTemperature(txt);
+        setAforo(calcularAforo(temperature));
+        setCapacityReal(calcularCapacityReal(temperature,getCapacidadMaxima()));
 
-
+ */
+    }
+/*
+    private String calcularCapacityReal(float temperature, int capacidadMaxima) {
+        if (temperature < 5) {
+            //Aforo del 30% cuando la temperatura es menor a 5°C
+            return Integer.toString((int) ((float) capacidadMaxima * 0.3));
+        } else if (temperature <= 15) {
+            //Aforo del 50% cuando la temperatura esta entre 5°C y 15°C
+            return Integer.toString((int) ((float) capacidadMaxima * 0.5));
+        } else
+            //Aforo del 100% cuando la temperatura es mayor a 15°C
+            return Integer.toString((int) ((float) capacidadMaxima * 1));
     }
 
+    private String calcularAforo(float temperature) {
+        if (temperature < 5) {
+            //Aforo del 30% cuando la temperatura es menor a 5°C
+            return "30%";
+        } else if (temperature <= 15) {
+            //Aforo del 50% cuando la temperatura esta entre 5°C y 15°C
+            return "50%";
+        } else
+            //Aforo del 100% cuando la temperatura es mayor a 15°C
+            return "100%";
+    }
+
+
+ */
     @Override
     protected void onResume() {
         super.onResume();
@@ -88,13 +116,27 @@ public class MainActivity extends Activity {
         this.temperature.setText(" "+temperature);
     }
 
+    public void setAforo(String aforo) {
+        Log.d("AFORO: ", aforo);
+        this.aforo.setText(" "+aforo);
+    }
+
+    public void setCapacityReal(String capacityReal) {
+        Log.d("CAPACIDAD REAL: ", capacityReal);
+        this.capacityReal.setText(capacityReal);
+    }
+
     public void resetCounter()  {
         contadorPersonas = 0;
         counter.setText(contadorPersonas.toString());
     }
 
+    public int getCapacidadMaxima() {
+        return capacidadMaxima;
+    }
+
     public int getCapacidadRealActual() {
-        return capacidadRealActual;
+        return Integer.parseInt(capacityReal.getText().toString());
     }
 
     @Override
