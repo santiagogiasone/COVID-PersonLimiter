@@ -1,6 +1,7 @@
 package com.example.covid_personlimiter.views;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.example.covid_personlimiter.R;
+import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.presenters.MainPresenter;
 
 public class MainActivity extends Activity {
@@ -27,6 +29,8 @@ public class MainActivity extends Activity {
     //Contador
     private Integer contadorPersonas = 0;
     private final Integer capacidadMaxima = 10;
+    private Intent intent;
+    private UserModel user;
 
     //Presenter
     private MainPresenter presenter;
@@ -56,6 +60,9 @@ public class MainActivity extends Activity {
         aforo = (TextView) findViewById(R.id.aforo);
         capacityReal = (TextView) findViewById(R.id.capacityReal);
 
+        intent = getIntent();
+        user = (UserModel) intent.getSerializableExtra("user");
+        Log.d("RESPONSE:", user.getToken());
 /*
         String txt = "";
         float temperature = 10;

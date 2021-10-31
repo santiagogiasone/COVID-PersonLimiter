@@ -11,13 +11,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.covid_personlimiter.R;
+import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.presenters.LoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements LoginViewInterface, View.OnClickListener {
     private EditText editUser;
     private EditText editPass;
     private Button   btnLogin;
-    private Button   btnSignup;
+    private Button   btnSignUp;
     private LoginPresenter loginPresenter;
     private ProgressBar progressBar;
 
@@ -30,12 +31,12 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         editUser = (EditText) this.findViewById(R.id.mail);
         editPass = (EditText) this.findViewById(R.id.password);
         btnLogin = (Button) this.findViewById(R.id.login);
-        btnSignup = (Button) this.findViewById(R.id.signup);
+        btnSignUp = (Button) this.findViewById(R.id.signup);
         progressBar = (ProgressBar) this.findViewById(R.id.loading);
 
         //set listener
         btnLogin.setOnClickListener(this);
-        btnSignup.setOnClickListener(this);
+        btnSignUp.setOnClickListener(this);
 
         //init
         loginPresenter = new LoginPresenter(this);
@@ -47,11 +48,11 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         if (v.getId() == R.id.login){
                 loginPresenter.setProgressBarVisiblity(View.VISIBLE);
                 btnLogin.setEnabled(false);
+                btnSignUp.setEnabled(false);
                 loginPresenter.doLogin(editUser.getText().toString(), editPass.getText().toString());
         }
-        if (v.getId() == R.id.signup) {
-            Intent intent = new Intent();
-            intent.setClass(LoginActivity.this, SignUpActivity.class);
+        else if (v.getId() == R.id.signup) {
+            Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
             startActivity(intent);
         }
     }
@@ -63,11 +64,15 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     }
 
     @Override
-    public void onLoginResult(Boolean success, String msg) {
+    public void onLoginResult(Boolean success, String msg, UserModel user) {
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
         btnLogin.setEnabled(true);
+        btnSignUp.setEnabled(true);
         if (success){
             Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
         }
         else
             Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();

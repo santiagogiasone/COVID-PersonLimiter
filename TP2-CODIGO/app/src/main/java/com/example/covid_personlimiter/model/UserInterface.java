@@ -1,6 +1,7 @@
 package com.example.covid_personlimiter.model;
 
 public interface UserInterface {
+
     String getDisplayName();
 
     String getUserId();
@@ -12,4 +13,6 @@ public interface UserInterface {
     void setToken(String token);
 
     void setRefreshToken(String refreshToken);
+
+    void setDisplayName(String displayName);
 }

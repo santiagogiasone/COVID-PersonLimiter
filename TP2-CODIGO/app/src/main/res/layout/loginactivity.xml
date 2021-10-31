@@ -25,9 +25,9 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="32dp"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/image_login" />
@@ -53,8 +53,9 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
+                    app:boxBackgroundMode="none"
                     app:hintEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -64,6 +65,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
+                        android:layout_marginBottom="6dp"
                         android:background="@android:color/transparent"
                         android:drawableStart="@drawable/ic_mail"
                         android:drawableLeft="@drawable/ic_mail"
@@ -89,6 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    app:boxBackgroundMode="none"
                     app:hintEnabled="false"
                     app:passwordToggleEnabled="true">
 
@@ -99,6 +102,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
+                        android:layout_marginBottom="6dp"
                         android:background="@android:color/transparent"
                         android:drawableStart="@drawable/ic_lock"
                         android:drawableLeft="@drawable/ic_lock"
@@ -119,20 +123,6 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:text="@string/button_sign_in" />
-
-            <ProgressBar
-                android:id="@+id/loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/password"
-                app:layout_constraintStart_toStartOf="@+id/password"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.3" />
 
             <TextView
                 android:layout_width="wrap_content"
