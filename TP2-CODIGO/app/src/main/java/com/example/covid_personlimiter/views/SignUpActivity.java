@@ -2,6 +2,7 @@ package com.example.covid_personlimiter.views;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -14,6 +15,7 @@ public class SignUpActivity extends Activity {
 
     //Buttons
     private Button signUpButton;
+    private Button goBackButton;
 
     //InputTexts
     private EditText name;
@@ -38,6 +40,7 @@ public class SignUpActivity extends Activity {
         password = (EditText) findViewById(R.id.et_password);
         confirmPassword = (EditText) findViewById(R.id.et_confirm_password);
         signUpButton = (Button) findViewById(R.id.button_signup);
+        goBackButton = (Button) findViewById(R.id.btnGoBack);
 
         presenter = new SignUpPresenter(this);
     }
@@ -58,6 +61,11 @@ public class SignUpActivity extends Activity {
             signUpButton.setOnClickListener(v -> {
                 presenter.setData(name.getText().toString(), lastName.getText().toString(), dni.getText().toString(),
                         mail.getText().toString(), password.getText().toString(), confirmPassword.getText().toString());
+            });
+
+            goBackButton.setOnClickListener(v -> {
+                Log.d("boton", "Se apreto el boton goBack");
+                finish();
             });
         }
 

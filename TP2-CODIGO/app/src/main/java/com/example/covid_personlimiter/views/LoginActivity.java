@@ -1,13 +1,14 @@
 package com.example.covid_personlimiter.views;
 
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.presenters.LoginPresenter;
@@ -16,6 +17,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     private EditText editUser;
     private EditText editPass;
     private Button   btnLogin;
+    private Button   btnSignup;
     private LoginPresenter loginPresenter;
     private ProgressBar progressBar;
 
@@ -28,10 +30,12 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         editUser = (EditText) this.findViewById(R.id.mail);
         editPass = (EditText) this.findViewById(R.id.password);
         btnLogin = (Button) this.findViewById(R.id.login);
+        btnSignup = (Button) this.findViewById(R.id.signup);
         progressBar = (ProgressBar) this.findViewById(R.id.loading);
 
         //set listener
         btnLogin.setOnClickListener(this);
+        btnSignup.setOnClickListener(this);
 
         //init
         loginPresenter = new LoginPresenter(this);
@@ -44,6 +48,11 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
                 loginPresenter.setProgressBarVisiblity(View.VISIBLE);
                 btnLogin.setEnabled(false);
                 loginPresenter.doLogin(editUser.getText().toString(), editPass.getText().toString());
+        }
+        if (v.getId() == R.id.signup) {
+            Intent intent = new Intent();
+            intent.setClass(LoginActivity.this, SignUpActivity.class);
+            startActivity(intent);
         }
     }
 
