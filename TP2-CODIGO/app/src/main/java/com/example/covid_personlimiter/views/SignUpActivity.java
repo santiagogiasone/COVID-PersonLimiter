@@ -1,16 +1,25 @@
 package com.example.covid_personlimiter.views;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.covid_personlimiter.R;
+import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.presenters.SignUpPresenter;
 
-public class SignUpActivity extends Activity {
+public class SignUpActivity extends AppCompatActivity implements SignUpViewInterface, View.OnClickListener {
+
+    private Toolbar toolbar;
 
     //Buttons
     private Button signUpButton;
@@ -38,41 +47,49 @@ public class SignUpActivity extends Activity {
         password = (EditText) findViewById(R.id.et_password);
         confirmPassword = (EditText) findViewById(R.id.et_confirm_password);
         signUpButton = (Button) findViewById(R.id.button_signup);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        signUpButton.setOnClickListener(this);
+        toolbar.setOnClickListener(this);
 
         presenter = new SignUpPresenter(this);
     }
-        @Override
-        protected void onStart() {
-            super.onStart();
-        }
 
-        @Override
-        protected void onRestart() {
-            super.onRestart();
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.button_signup){
+            presenter.setProgressBarVisiblity(View.VISIBLE);
+            signUpButton.setEnabled(false);
+            toolbar.setEnabled(false);
+            presenter.doSignUp(name.getText().toString(), lastName.getText().toString(), Integer.parseInt(dni.getText().toString()), mail.getText().toString(), password.getText().toString());
         }
-
-        @Override
-        protected void onResume() {
-            super.onResume();
-
-            signUpButton.setOnClickListener(v -> {
-                presenter.setData(name.getText().toString(), lastName.getText().toString(), dni.getText().toString(),
-                        mail.getText().toString(), password.getText().toString(), confirmPassword.getText().toString());
-            });
+        else if (v.getId() == R.id.toolbar) {
+            finish();
         }
+    }
 
-        @Override
-        protected void onPause() {
-            super.onPause();
-        }
+    @Override
+    public void onClearText() {
 
-        @Override
-        protected void onStop() {
-            super.onStop();
-        }
+    }
 
-        @Override
-        protected void onDestroy() {
-            super.onDestroy();
+    @Override
+    public void onRegisterResult(Boolean success, String msg, UserModel user) {
+        presenter.setProgressBarVisiblity(View.INVISIBLE);
+        signUpButton.setEnabled(true);
+        toolbar.setEnabled(true);
+        if (success){
+            Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
         }
+        else
+            Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSetProgressBarVisibility(int visibility) {
+
+    }
 }

@@ -5,7 +5,6 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.example.covid_personlimiter.model.UserModel;
-import com.example.covid_personlimiter.model.UserInterface;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.requests.LoginRequest;
 import com.example.covid_personlimiter.model.responses.LoginResponse;
@@ -46,7 +45,6 @@ public class LoginPresenter implements LoginPresenterInterface {
             Retrofit retrofit = retrofitObj.getRetrofitInstance();
             LoginService loginService = retrofit.create(LoginService.class);
             Call<LoginResponse> call = loginService.api_login(request);
-            Boolean isLoginSuccess = true;
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
