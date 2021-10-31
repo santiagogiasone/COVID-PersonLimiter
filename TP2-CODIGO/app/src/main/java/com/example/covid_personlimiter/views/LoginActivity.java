@@ -1,16 +1,16 @@
-package  com.example.covid_personlimiter;
+package com.example.covid_personlimiter.views;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.presenters.LoginPresenter;
-import com.example.covid_personlimiter.view.LoginViewInterface;
 
 public class LoginActivity extends AppCompatActivity implements LoginViewInterface, View.OnClickListener {
     private EditText editUser;
@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         setContentView(R.layout.loginactivity);
 
         //find view
-        editUser = (EditText) this.findViewById(R.id.username);
+        editUser = (EditText) this.findViewById(R.id.mail);
         editPass = (EditText) this.findViewById(R.id.password);
         btnLogin = (Button) this.findViewById(R.id.login);
         progressBar = (ProgressBar) this.findViewById(R.id.loading);

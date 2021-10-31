@@ -1,4 +1,4 @@
-package com.example.covid_personlimiter.view;
+package com.example.covid_personlimiter.views;
 
 public interface LoginViewInterface {
     public void onClearText();

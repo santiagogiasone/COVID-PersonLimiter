@@ -4,16 +4,14 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.example.covid_personlimiter.data.Result;
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.model.UserInterface;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.requests.LoginRequest;
 import com.example.covid_personlimiter.model.responses.LoginResponse;
 import com.example.covid_personlimiter.model.services.LoginService;
-import com.example.covid_personlimiter.view.LoginViewInterface;
+import com.example.covid_personlimiter.views.LoginViewInterface;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import retrofit2.Call;
