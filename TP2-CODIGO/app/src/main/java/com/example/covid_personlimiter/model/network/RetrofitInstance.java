@@ -1,7 +1,5 @@
 package com.example.covid_personlimiter.model.network;
 
-import com.example.covid_personlimiter.model.requests.LoginRequest;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
