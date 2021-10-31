@@ -45,4 +45,7 @@ public class UserModel implements UserInterface {
     public String getDisplayName() {
         return displayName;
     }
+
+    @Override
+    public void setDisplayName(String displayName) { this.displayName = displayName; }
 }

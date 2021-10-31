@@ -1,14 +1,18 @@
 package  com.example.covid_personlimiter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.presenters.LoginPresenter;
 import com.example.covid_personlimiter.view.LoginViewInterface;
 
@@ -54,11 +58,14 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     }
 
     @Override
-    public void onLoginResult(Boolean success, String msg) {
+    public void onLoginResult(Boolean success, String msg, UserModel user) {
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
         btnLogin.setEnabled(true);
         if (success){
             Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+            intent.putExtra("user", (Parcelable) user);
+            startActivity(intent);
         }
         else
             Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();
