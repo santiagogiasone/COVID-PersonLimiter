@@ -2,10 +2,12 @@ package com.example.covid_personlimiter.model;
 
 import com.example.covid_personlimiter.model.UserInterface;
 
+import java.io.Serializable;
+
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
-public class UserModel implements UserInterface {
+public class UserModel implements UserInterface, Serializable {
 
     private String userId;
     private String displayName;
@@ -45,4 +47,7 @@ public class UserModel implements UserInterface {
     public String getDisplayName() {
         return displayName;
     }
+
+    @Override
+    public void setDisplayName(String displayName) { this.displayName = displayName; }
 }
