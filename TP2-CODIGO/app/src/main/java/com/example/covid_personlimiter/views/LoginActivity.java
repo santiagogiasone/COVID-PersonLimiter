@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
 
     @Override
     public void onLoginResult(Boolean success, String msg, UserModel user) {
+
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
         btnLogin.setEnabled(true);
         btnSignUp.setEnabled(true);

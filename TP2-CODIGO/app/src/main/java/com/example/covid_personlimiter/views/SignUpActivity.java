@@ -1,6 +1,5 @@
 package com.example.covid_personlimiter.views;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -72,17 +71,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
 
     @Override
     public void onClearText() {
-
-            signUpButton.setOnClickListener(v -> {
-                presenter.setData(name.getText().toString(), lastName.getText().toString(), dni.getText().toString(),
-                        mail.getText().toString(), password.getText().toString(), confirmPassword.getText().toString());
-            });
-
-            goBackButton.setOnClickListener(v -> {
-                Log.d("boton", "Se apreto el boton goBack");
-                finish();
-            });
-        }
     }
 
     @Override
