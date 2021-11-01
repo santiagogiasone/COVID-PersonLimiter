@@ -51,15 +51,15 @@ public class MainActivity extends Activity implements LoggedOnInterface {
 
 
         //Definicion de los botones
-        buttonPlus = (Button)findViewById(R.id.buttonPlus);
-        buttonMinus = (Button)findViewById(R.id.buttonMinus);
+        buttonPlus = (Button) findViewById(R.id.buttonPlus);
+        buttonMinus = (Button) findViewById(R.id.buttonMinus);
 
         //Definicion de los textos variables de la app.
         counter = (TextView) findViewById(R.id.counter);
         counter.setText(contadorPersonas.toString());
 
         capacityMax = (TextView) findViewById(R.id.capacityMax);
-        capacityMax.setText(" "+capacidadMaxima.toString());
+        capacityMax.setText(" " + capacidadMaxima.toString());
 
         temperature = (TextView) findViewById(R.id.temperature);
         aforo = (TextView) findViewById(R.id.aforo);
@@ -72,11 +72,7 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         Log.d("RESPONSE:", user.getToken());
         Log.d("RESPONSE:", user.getRefreshToken());
 
-
-        user.generateNewToken(this);
-
-        Log.d("RESPONSE:", user.getToken());
-        Log.d("RESPONSE:", user.getRefreshToken());
+        //user.generateNewToken(this);
 
         eventRegisterPresenter = new EventRegisterPresenter(user);
         eventRegisterPresenter.doRegisterEvent("LOGIN","Registro del Login en onCreate method");
@@ -151,7 +147,7 @@ public class MainActivity extends Activity implements LoggedOnInterface {
     }
 
     public void resetCounter()  {
-        contadorPersonas = 0;
+        this.contadorPersonas = 0;
         counter.setText(contadorPersonas.toString());
     }
 

@@ -75,7 +75,7 @@ public class MainPresenter implements SensorEventListener {
                     txt += "y: " + dosdecimales.format(event.values[1]) + " m/seg2 \n";
                     txt += "z: " + dosdecimales.format(event.values[2]) + " m/seg2 \n";
 
-                    if ((event.values[0] > 25) || (event.values[1] > 25) || (event.values[2] > 25)) {
+                    if ((Math.abs(event.values[0]) > 25) || (Math.abs(event.values[1]) > 25) || (Math.abs(event.values[2]) > 25)) {
                         activity.resetCounter();
                     }
                     break;

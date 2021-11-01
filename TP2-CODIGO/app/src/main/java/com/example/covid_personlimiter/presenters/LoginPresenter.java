@@ -1,14 +1,22 @@
 package com.example.covid_personlimiter.presenters;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.requests.LoginRequest;
 import com.example.covid_personlimiter.model.responses.LoginResponse;
 import com.example.covid_personlimiter.model.services.LoginService;
+import com.example.covid_personlimiter.views.LoginActivity;
 import com.example.covid_personlimiter.views.LoginViewInterface;
 
 import java.util.UUID;
@@ -23,6 +31,7 @@ public class LoginPresenter implements LoginPresenterInterface {
     UserModel user;
     Handler handler;
     RetrofitInstance retrofitObj;
+
 
     public LoginPresenter(LoginViewInterface iLoginView) {
         this.iLoginView = iLoginView;
@@ -77,4 +86,5 @@ public class LoginPresenter implements LoginPresenterInterface {
     private void initUser(){
         user = new UserModel(UUID.randomUUID().toString());
     }
+
 }

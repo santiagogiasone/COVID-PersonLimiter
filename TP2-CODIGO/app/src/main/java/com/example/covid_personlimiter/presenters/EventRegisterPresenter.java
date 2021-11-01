@@ -1,6 +1,7 @@
 package com.example.covid_personlimiter.presenters;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
@@ -17,7 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class EventRegisterPresenter implements EventRegisterPresenterInterface {
+public class EventRegisterPresenter implements EventRegisterPresenterInterface, LoggedOnInterface {
 
     private RetrofitInstance retrofitObj;
     private UserModel user;
@@ -34,6 +35,10 @@ public class EventRegisterPresenter implements EventRegisterPresenterInterface {
             request.setEnv("TEST");
             request.setType_events(type_events);
             request.setDescription(description);
+            //VER LA LOGICA DE ESTO PORQUE ME PIDE UNA LoggedOnInterface y solo se la puedo mandar desde la view que la implementa
+            if(user.isTokenExpired()) {
+                user.generateNewToken(this);
+            }
             Retrofit retrofit = retrofitObj.getRetrofitInstance();
             EventRegisterService eventRegisterService = retrofit.create(EventRegisterService.class);
             Call<EventRegisterResponse> call = eventRegisterService.api_event_register("Bearer " + user.getToken(), request);
@@ -56,5 +61,10 @@ public class EventRegisterPresenter implements EventRegisterPresenterInterface {
         } catch (Exception e)  {
             Log.d("RESPONSE", e.toString());
         }
+    }
+
+    @Override
+    public void goToLogin(String msg) {
+
     }
 }

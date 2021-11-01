@@ -1,11 +1,17 @@
 package com.example.covid_personlimiter.views;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +20,24 @@ import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.presenters.LoginPresenter;
 
-public class LoginActivity extends AppCompatActivity implements LoginViewInterface, View.OnClickListener {
+public class LoginActivity extends Activity implements LoginViewInterface, View.OnClickListener {
     private EditText editUser;
     private EditText editPass;
     private Button   btnLogin;
     private Button   btnSignUp;
     private LoginPresenter loginPresenter;
     private ProgressBar progressBar;
+    private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+            int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+            Float batteryPct = level * 100 / (float)scale;
+            String txt = "Porcentaje Bateria: " +batteryPct.toString() + "%";
+            setBatteryInfo(txt);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +58,11 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         //init
         loginPresenter = new LoginPresenter(this);
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
+
+        //BatteryInfo    //FALTA DESREGISTRAR ESTE RECEIVER
+        this.registerReceiver(this.batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+
     }
 
     @Override
@@ -87,5 +109,9 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     @Override
     public void onSetProgressBarVisibility(int visibility) {
         progressBar.setVisibility(visibility);
+    }
+
+    public void setBatteryInfo(String txt) {
+        Toast.makeText(this,txt,Toast.LENGTH_SHORT).show();
     }
 }
