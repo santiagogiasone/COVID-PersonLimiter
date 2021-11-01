@@ -1,5 +1,7 @@
 package com.example.covid_personlimiter.model;
 
+import com.example.covid_personlimiter.views.LoggedOnInterface;
+
 public interface UserInterface {
 
     String getDisplayName();
@@ -15,4 +17,8 @@ public interface UserInterface {
     void setRefreshToken(String refreshToken);
 
     void setDisplayName(String displayName);
+
+    Boolean isTokenExpired();
+
+    void generateNewToken(LoggedOnInterface ilogged);
 }

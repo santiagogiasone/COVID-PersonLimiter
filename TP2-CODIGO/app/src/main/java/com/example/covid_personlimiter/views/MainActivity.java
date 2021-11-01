@@ -6,14 +6,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.auth0.android.jwt.JWT;
 import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.presenters.MainPresenter;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements LoggedOnInterface {
 
     //Buttons
     private Button buttonPlus;
@@ -63,6 +65,7 @@ public class MainActivity extends Activity {
         intent = getIntent();
         user = (UserModel) intent.getSerializableExtra("user");
         Log.d("RESPONSE:", user.getToken());
+        user.generateNewToken(this);
 /*
         String txt = "";
         float temperature = 10;
@@ -173,5 +176,11 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         presenter.pararSensores();
         super.onDestroy();
+    }
+
+    @Override
+    public void goToLogin(String msg) {
+        Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
