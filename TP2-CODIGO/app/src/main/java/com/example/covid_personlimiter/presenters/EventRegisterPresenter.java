@@ -10,6 +10,7 @@ import com.example.covid_personlimiter.model.responses.EventRegisterResponse;
 import com.example.covid_personlimiter.model.responses.LoginResponse;
 import com.example.covid_personlimiter.model.services.EventRegisterService;
 import com.example.covid_personlimiter.model.services.LoginService;
+import com.example.covid_personlimiter.views.LoggedOnInterface;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,13 +20,15 @@ import retrofit2.Retrofit;
 public class EventRegisterPresenter implements EventRegisterPresenterInterface {
 
     private RetrofitInstance retrofitObj;
+    private UserModel user;
 
-    public EventRegisterPresenter() {
+    public EventRegisterPresenter(UserModel user) {
         this.retrofitObj = new RetrofitInstance();
+        this.user = user;
     }
 
     @Override
-    public void doRegisterEvent(String type_events, String description, String token) {
+    public void doRegisterEvent(String type_events, String description) {
         try {
             EventRegisterRequest request = new EventRegisterRequest();
             request.setEnv("TEST");
@@ -33,7 +36,7 @@ public class EventRegisterPresenter implements EventRegisterPresenterInterface {
             request.setDescription(description);
             Retrofit retrofit = retrofitObj.getRetrofitInstance();
             EventRegisterService eventRegisterService = retrofit.create(EventRegisterService.class);
-            Call<EventRegisterResponse> call = eventRegisterService.api_event_register(token, request);
+            Call<EventRegisterResponse> call = eventRegisterService.api_event_register("Bearer " + user.getToken(), request);
             call.enqueue(new Callback<EventRegisterResponse>() {
                 @Override
                 public void onResponse(Call<EventRegisterResponse> call, Response<EventRegisterResponse> response) {

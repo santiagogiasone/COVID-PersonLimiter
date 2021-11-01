@@ -1,15 +1,10 @@
 package com.example.covid_personlimiter.model;
 
-import android.app.Activity;
 import android.util.Log;
 
 import com.auth0.android.jwt.JWT;
-import com.example.covid_personlimiter.model.UserInterface;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
-import com.example.covid_personlimiter.model.requests.LoginRequest;
-import com.example.covid_personlimiter.model.responses.LoginResponse;
 import com.example.covid_personlimiter.model.responses.RefreshResponse;
-import com.example.covid_personlimiter.model.services.LoginService;
 import com.example.covid_personlimiter.model.services.RefreshService;
 import com.example.covid_personlimiter.views.LoggedOnInterface;
 

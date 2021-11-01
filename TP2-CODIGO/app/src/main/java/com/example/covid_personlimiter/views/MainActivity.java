@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import com.auth0.android.jwt.JWT;
 import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.UserModel;
+import com.example.covid_personlimiter.presenters.EventRegisterPresenter;
 import com.example.covid_personlimiter.presenters.MainPresenter;
 
 public class MainActivity extends Activity implements LoggedOnInterface {
@@ -31,11 +32,13 @@ public class MainActivity extends Activity implements LoggedOnInterface {
     //Contador
     private Integer contadorPersonas = 0;
     private final Integer capacidadMaxima = 10;
+
     private Intent intent;
     private UserModel user;
 
     //Presenter
-    private MainPresenter presenter;
+    private MainPresenter mainPresenter;
+    private EventRegisterPresenter eventRegisterPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,8 +46,8 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         setContentView(R.layout.mainactivity);
 
         //Instanciacion del presentador
-        presenter = new MainPresenter(this);
-        presenter.setupSensorManager();
+        mainPresenter = new MainPresenter(this);
+        mainPresenter.setupSensorManager();
 
 
         //Definicion de los botones
@@ -64,8 +67,19 @@ public class MainActivity extends Activity implements LoggedOnInterface {
 
         intent = getIntent();
         user = (UserModel) intent.getSerializableExtra("user");
+        Log.d("RESPONSE:", user.getUserId());
+        Log.d("RESPONSE:", user.getDisplayName());
         Log.d("RESPONSE:", user.getToken());
+        Log.d("RESPONSE:", user.getRefreshToken());
+
+
         user.generateNewToken(this);
+
+        Log.d("RESPONSE:", user.getToken());
+        Log.d("RESPONSE:", user.getRefreshToken());
+
+        eventRegisterPresenter = new EventRegisterPresenter(user);
+        eventRegisterPresenter.doRegisterEvent("LOGIN","Registro del Login en onCreate method");
 /*
         String txt = "";
         float temperature = 10;
@@ -107,15 +121,15 @@ public class MainActivity extends Activity implements LoggedOnInterface {
     protected void onResume() {
         super.onResume();
 
-        presenter.iniciarSensores();
+        mainPresenter.iniciarSensores();
 
         buttonMinus.setOnClickListener(v -> {
-            contadorPersonas = presenter.substract(contadorPersonas);
+            contadorPersonas = mainPresenter.substract(contadorPersonas);
             counter.setText(contadorPersonas.toString());
         });
 
         buttonPlus.setOnClickListener(v -> {
-            contadorPersonas = presenter.add(contadorPersonas);
+            contadorPersonas = mainPresenter.add(contadorPersonas);
             counter.setText(contadorPersonas.toString());
         });
 
@@ -156,25 +170,25 @@ public class MainActivity extends Activity implements LoggedOnInterface {
 
     @Override
     protected void onRestart() {
-        presenter.iniciarSensores();
+        mainPresenter.iniciarSensores();
         super.onRestart();
     }
 
     @Override
     protected void onPause() {
-        presenter.pararSensores();
+        mainPresenter.pararSensores();
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        presenter.pararSensores();
+        mainPresenter.pararSensores();
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        presenter.pararSensores();
+        mainPresenter.pararSensores();
         super.onDestroy();
     }
 
