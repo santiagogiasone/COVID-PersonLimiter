@@ -15,6 +15,7 @@ import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.requests.LoginRequest;
 import com.example.covid_personlimiter.model.responses.LoginResponse;
+import com.example.covid_personlimiter.model.services.BatteryInfoService;
 import com.example.covid_personlimiter.model.services.LoginService;
 import com.example.covid_personlimiter.views.LoginActivity;
 import com.example.covid_personlimiter.views.LoginViewInterface;
@@ -31,7 +32,6 @@ public class LoginPresenter implements LoginPresenterInterface {
     UserModel user;
     Handler handler;
     RetrofitInstance retrofitObj;
-
 
     public LoginPresenter(LoginViewInterface iLoginView) {
         this.iLoginView = iLoginView;
@@ -87,4 +87,8 @@ public class LoginPresenter implements LoginPresenterInterface {
         user = new UserModel(UUID.randomUUID().toString());
     }
 
+
+    public void getBatteryInfo(Context baseContext) {
+        baseContext.registerReceiver(new BatteryInfoService(), new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    }
 }

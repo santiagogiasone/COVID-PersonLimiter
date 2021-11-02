@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.UserModel;
+import com.example.covid_personlimiter.model.services.BatteryInfoService;
 import com.example.covid_personlimiter.presenters.LoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements LoginViewInterface, View.OnClickListener {
@@ -27,19 +28,8 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     private TextView passwordRequired;
     private Button   btnLogin;
     private Button   btnSignUp;
-    private LoginPresenter loginPresenter;
     private ProgressBar progressBar;
-    private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-            int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-            Float batteryPct = level * 100 / (float)scale;
-            String txt = "Porcentaje Bateria: " +batteryPct.toString() + "%";
-            setBatteryInfo(txt);
-        }
-    };
-
+    private LoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +53,8 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         loginPresenter = new LoginPresenter(this);
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
 
-        //BatteryInfo    //FALTA DESREGISTRAR ESTE RECEIVER
-        this.registerReceiver(this.batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        //BatteryInfo
+        loginPresenter.getBatteryInfo(this.getBaseContext());
     }
 
     @Override
@@ -123,9 +113,5 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     @Override
     public void onSetProgressBarVisibility(int visibility) {
         progressBar.setVisibility(visibility);
-    }
-
-    public void setBatteryInfo(String txt) {
-        Toast.makeText(this,txt,Toast.LENGTH_SHORT).show();
     }
 }
