@@ -20,7 +20,7 @@ import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.presenters.LoginPresenter;
 
-public class LoginActivity extends Activity implements LoginViewInterface, View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements LoginViewInterface, View.OnClickListener {
     private EditText editUser;
     private EditText editPass;
     private Button   btnLogin;
@@ -61,8 +61,6 @@ public class LoginActivity extends Activity implements LoginViewInterface, View.
 
         //BatteryInfo    //FALTA DESREGISTRAR ESTE RECEIVER
         this.registerReceiver(this.batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-
-
     }
 
     @Override

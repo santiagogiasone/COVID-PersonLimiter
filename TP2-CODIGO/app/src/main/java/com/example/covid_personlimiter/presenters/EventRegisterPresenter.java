@@ -12,20 +12,24 @@ import com.example.covid_personlimiter.model.responses.LoginResponse;
 import com.example.covid_personlimiter.model.services.EventRegisterService;
 import com.example.covid_personlimiter.model.services.LoginService;
 import com.example.covid_personlimiter.views.LoggedOnInterface;
+import com.example.covid_personlimiter.views.LoginActivity;
+import com.example.covid_personlimiter.views.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class EventRegisterPresenter implements EventRegisterPresenterInterface, LoggedOnInterface {
+public class EventRegisterPresenter implements EventRegisterPresenterInterface {
 
     private RetrofitInstance retrofitObj;
     private UserModel user;
+    private MainActivity mainActivity;
 
-    public EventRegisterPresenter(UserModel user) {
+    public EventRegisterPresenter(UserModel user, MainActivity mainActivity) {
         this.retrofitObj = new RetrofitInstance();
         this.user = user;
+        this.mainActivity = mainActivity;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class EventRegisterPresenter implements EventRegisterPresenterInterface, 
             request.setDescription(description);
             //VER LA LOGICA DE ESTO PORQUE ME PIDE UNA LoggedOnInterface y solo se la puedo mandar desde la view que la implementa
             if(user.isTokenExpired()) {
-                user.generateNewToken(this);
+                user.generateNewToken(mainActivity);
             }
             Retrofit retrofit = retrofitObj.getRetrofitInstance();
             EventRegisterService eventRegisterService = retrofit.create(EventRegisterService.class);
@@ -61,10 +65,5 @@ public class EventRegisterPresenter implements EventRegisterPresenterInterface, 
         } catch (Exception e)  {
             Log.d("RESPONSE", e.toString());
         }
-    }
-
-    @Override
-    public void goToLogin(String msg) {
-
     }
 }
