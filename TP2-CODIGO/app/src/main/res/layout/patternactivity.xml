@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    tools:context=".views.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbarThumbHorizontal="@null"
+        android:scrollbarThumbVertical="@null">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="700dp"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="32dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/image_login" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:text="@string/pattern_text"
+                android:textAlignment="center"
+                android:textColor="#696969"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.andrognito.patternlockview.PatternLockView
+                android:id="@+id/pattern_lock_view"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                app:aspectRatio="square"
+                app:aspectRatioEnabled="true"
+                app:correctStateColor="@color/colorPrimary"
+                app:dotAnimationDuration="200"
+                app:dotCount="3"
+                app:dotNormalSize="12dp"
+                app:dotSelectedSize="24dp"
+                app:normalStateColor="#696969"
+                app:pathEndAnimationDuration="100"
+                app:pathWidth="4dp"
+                app:wrongStateColor="@color/pomegranate" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +72,10 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     public void onClick(View v) {
         String editUserText = editUser.getText().toString();
         String editPassText = editPass.getText().toString();
+        if (v.getId() == R.id.signup) {
+            Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
+            startActivity(intent);
+        }
         if (editUserText.isEmpty()) {
             userRequired.setVisibility(View.VISIBLE);
             return;
@@ -84,14 +87,10 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         userRequired.setVisibility(View.GONE);
         passwordRequired.setVisibility(View.GONE);
         if (v.getId() == R.id.login){
-                loginPresenter.setProgressBarVisiblity(View.VISIBLE);
-                btnLogin.setEnabled(false);
-                btnSignUp.setEnabled(false);
-                loginPresenter.doLogin(editUserText, editPassText);
-        }
-        else if (v.getId() == R.id.signup) {
-            Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
-            startActivity(intent);
+            loginPresenter.setProgressBarVisiblity(View.VISIBLE);
+            btnLogin.setEnabled(false);
+            btnSignUp.setEnabled(false);
+            loginPresenter.doLogin(editUserText, editPassText);
         }
     }
 
