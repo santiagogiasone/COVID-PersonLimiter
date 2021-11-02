@@ -37,7 +37,6 @@ public class UserModel implements UserInterface, Serializable {
 
     @Override
     public void generateNewToken(LoggedOnInterface ilogged) {
-        Log.d("RESPONSE", "WASD");
         RetrofitInstance retrofitInstance = new RetrofitInstance();
         Retrofit retrofit = retrofitInstance.getRetrofitInstance();
         RefreshService refreshService = retrofit.create(RefreshService.class);
@@ -56,7 +55,6 @@ public class UserModel implements UserInterface, Serializable {
 
             @Override
             public void onFailure(Call<RefreshResponse> call, Throwable t) {
-                Log.d("RESPONSE", "SALIO TODO MAL 2");
                 ilogged.goToLogin("Sesion Expirada");
             }
         });
