@@ -1,7 +1,5 @@
 package com.example.covid_personlimiter.model;
 
-import android.util.Log;
-
 import com.auth0.android.jwt.JWT;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.responses.RefreshResponse;

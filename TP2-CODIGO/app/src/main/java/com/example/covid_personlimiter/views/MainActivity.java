@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.auth0.android.jwt.JWT;
 import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.presenters.EventRegisterPresenter;
@@ -74,7 +73,7 @@ public class MainActivity extends Activity implements LoggedOnInterface {
 
         //user.generateNewToken(this);
 
-        eventRegisterPresenter = new EventRegisterPresenter(user);
+        eventRegisterPresenter = new EventRegisterPresenter(user, this);
         eventRegisterPresenter.doRegisterEvent("LOGIN","Registro del Login en onCreate method");
 /*
         String txt = "";
