@@ -78,6 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         else if (v.getId() == R.id.signup) {
             Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -94,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         btnLogin.setEnabled(true);
         btnSignUp.setEnabled(true);
         if (success){
+            onClearText();
             Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
             this.loginSuccess += 1;
             Intent intent=new Intent(LoginActivity.this,MainActivity.class);
@@ -101,6 +103,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
             intent.putExtra("loginSuccess",this.loginSuccess);
             intent.putExtra("loginFailed",this.loginFailed);
             startActivity(intent);
+            finish();
         }
         else {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

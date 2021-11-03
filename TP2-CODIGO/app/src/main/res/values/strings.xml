@@ -36,7 +36,7 @@
     <string name="dni_required">El DNI es requerido</string>
     <string name="pattern_text">¡Bienvenido! Ingrese el patron de desbloqueo de la aplicacion</string>
     <string name="desired_pattern">0124678</string>
-    <string name="env">TEST</string>
+    <string name="env">PROD</string>
     <integer name="commision">3900</integer>
     <integer name="group">17</integer>
     <string name="text_signup_terms">

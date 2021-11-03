@@ -76,7 +76,8 @@ public class EventRegisterPresenter implements EventRegisterPresenterInterface {
     @Override
     public void checkConnection(Context context) {
         ConnectionService connectionService = new ConnectionService();
-        boolean connection = (connectionService.isNetworkConnected(context) && connectionService.isInternetAvailable());
+        //&& connectionService.isInternetAvailable()
+        boolean connection = (connectionService.isNetworkConnected(context));
         if(!connection) {
             Toast.makeText(context,"Error en la conexion",Toast.LENGTH_SHORT).show();
         }

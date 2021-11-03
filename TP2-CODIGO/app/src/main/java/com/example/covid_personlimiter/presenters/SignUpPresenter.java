@@ -47,7 +47,8 @@ public class SignUpPresenter implements SignUpPresenterInterface {
     @Override
     public void checkConnection(Context context) {
         ConnectionService connectionService = new ConnectionService();
-        boolean connection = (connectionService.isNetworkConnected(context) && connectionService.isInternetAvailable());
+        //&& connectionService.isInternetAvailable()
+        boolean connection = (connectionService.isNetworkConnected(context) );
         if(!connection) {
             signUpViewInterface.enableButton(signUpViewInterface.getBtnSignUp());
             Toast.makeText(context,"Error en la conexion",Toast.LENGTH_SHORT).show();

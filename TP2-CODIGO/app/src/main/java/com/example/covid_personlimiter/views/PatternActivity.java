@@ -49,10 +49,17 @@ public class PatternActivity extends AppCompatActivity implements PatternLockVie
             Toast.makeText(this,"Patron Ingresado con Exito",Toast.LENGTH_SHORT).show();
             Intent intent=new Intent(PatternActivity.this,LoginActivity.class);
             startActivity(intent);
+            finish();
         }
         else {
             pattern.setViewMode(PatternLockView.PatternViewMode.WRONG);
         }
+    }
+
+    @Override
+    public void onStop() {
+        pattern.clearPattern();
+        super.onStop();
     }
 
     @Override

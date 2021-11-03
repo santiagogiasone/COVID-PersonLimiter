@@ -142,7 +142,6 @@ public class MainActivity extends Activity implements LoggedOnInterface {
 
         buttonMinus.setOnClickListener(v -> {
             eventRegisterPresenter.doRegisterEvent("INTERACTION","Ingreso de una persona al lugar", this.getBaseContext());
-
             contadorPersonas = mainPresenter.substract(contadorPersonas);
             counter.setText(contadorPersonas.toString());
         });
@@ -154,12 +153,11 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         });
 
         buttonClearLogins.setOnClickListener(v -> {
+            eventRegisterPresenter.doRegisterEvent("INTERACTION","Se limpia el archivo de SharedPreference", this.getBaseContext());
             spThread.clearFile();
             setLoginsSuccess(0);
             setLoginsFailed(0);
         });
-
-
     }
 
     public void setTemperature(String temperature)  {

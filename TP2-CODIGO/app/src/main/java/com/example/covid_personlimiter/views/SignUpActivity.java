@@ -129,6 +129,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
 
     @Override
     public void onClearText() {
+        this.name.setText("");
+        this.lastName.setText("");
+        this.dni.setText("");
+        this.mail.setText("");
+        this.password.setText("");
+        this.confirmPassword.setText("");
     }
 
     @Override
@@ -137,10 +143,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         signUpButton.setEnabled(true);
         toolbar.setEnabled(true);
         if (success){
+            onClearText();
             Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
+            Intent intent=new Intent(SignUpActivity.this,LoginActivity.class);
             intent.putExtra("user", user);
             startActivity(intent);
+            finish();
         }
         else
             Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();
