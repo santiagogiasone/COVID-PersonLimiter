@@ -1,11 +1,6 @@
 package com.example.covid_personlimiter.views;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,10 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.UserModel;
-import com.example.covid_personlimiter.model.services.BatteryInfoService;
 import com.example.covid_personlimiter.presenters.LoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements LoginViewInterface, View.OnClickListener {
+
     private EditText editUser;
     private TextView userRequired;
     private EditText editPass;
@@ -30,11 +25,17 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     private Button   btnSignUp;
     private ProgressBar progressBar;
     private LoginPresenter loginPresenter;
+    private int loginSuccess;
+    private int loginFailed;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginactivity);
+
+        loginSuccess = 0;
+        loginFailed = 0;
 
         //find view
         editUser = (EditText) this.findViewById(R.id.mail);
@@ -52,35 +53,42 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         //init
         loginPresenter = new LoginPresenter(this);
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
+    }
 
-        //BatteryInfo
-        loginPresenter.getBatteryInfo(this.getBaseContext());
+    public boolean areInputsValid() {
+        Boolean userNotExists = editUser.getText().toString().isEmpty();
+        Boolean passwordNotExists = editPass.getText().toString().isEmpty();
+        userRequired.setVisibility(userNotExists ? View.VISIBLE : View.GONE);
+        passwordRequired.setVisibility(passwordNotExists ? View.VISIBLE : View.GONE);
+        return !userNotExists && !passwordNotExists;
     }
 
     @Override
     public void onClick(View v) {
-        String editUserText = editUser.getText().toString();
-        String editPassText = editPass.getText().toString();
         if (v.getId() == R.id.signup) {
             Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
             startActivity(intent);
             return;
         }
-        if (editUserText.isEmpty()) {
-            userRequired.setVisibility(View.VISIBLE);
-            return;
-        }
-        if (editPassText.isEmpty()) {
-            passwordRequired.setVisibility(View.VISIBLE);
-            return;
-        }
-        userRequired.setVisibility(View.GONE);
-        passwordRequired.setVisibility(View.GONE);
-        if (v.getId() == R.id.login){
+        if (areInputsValid()) {
+            String editUserText = editUser.getText().toString();
+            String editPassText = editPass.getText().toString();
+            if (v.getId() == R.id.login) {
+                if (editUserText.isEmpty()) {
+                    userRequired.setVisibility(View.VISIBLE);
+                    return;
+                }
+                if (editPassText.isEmpty()) {
+                    passwordRequired.setVisibility(View.VISIBLE);
+                    return;
+                }
+                userRequired.setVisibility(View.GONE);
+                passwordRequired.setVisibility(View.GONE);
                 loginPresenter.setProgressBarVisiblity(View.VISIBLE);
-                btnLogin.setEnabled(false);
-                btnSignUp.setEnabled(false);
+                dissableButton(btnLogin);
+                loginPresenter.checkConnection(this.getBaseContext());
                 loginPresenter.doLogin(editUserText, editPassText);
+            }
         }
     }
 
@@ -97,13 +105,20 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         btnLogin.setEnabled(true);
         btnSignUp.setEnabled(true);
         if (success){
+            onClearText();
             Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+            this.loginSuccess += 1;
             Intent intent=new Intent(LoginActivity.this,MainActivity.class);
             intent.putExtra("user", user);
+            intent.putExtra("loginSuccess",this.loginSuccess);
+            intent.putExtra("loginFailed",this.loginFailed);
             startActivity(intent);
+            finish();
         }
-        else
-            Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();
+        else {
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+            this.loginFailed += 1;
+        }
     }
 
     @Override
@@ -114,5 +129,37 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     @Override
     public void onSetProgressBarVisibility(int visibility) {
         progressBar.setVisibility(visibility);
+    }
+
+    @Override
+    public void onStart() {
+        loginSuccess = 0;
+        loginFailed = 0;
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        loginSuccess = 0;
+        loginFailed = 0;
+        super.onResume();
+    }
+
+
+
+    @Override
+    public void enableButton(Button button) {
+        button.setEnabled(true);
+    }
+    @Override
+    public void dissableButton(Button button) {
+        button.setEnabled(false);
+    }
+
+    public Button getBtnLogin() {
+        return this.btnLogin;
+    }
+    public Button getBtnSignUp() {
+        return this.btnSignUp;
     }
 }

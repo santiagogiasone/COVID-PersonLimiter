@@ -2,7 +2,6 @@ package com.example.covid_personlimiter.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         password = (EditText) findViewById(R.id.et_password);
         confirmPassword = (EditText) findViewById(R.id.et_confirm_password);
         signUpButton = (Button) findViewById(R.id.button_signup);
-        goBackButton = (Button) findViewById(R.id.btnGoBack);
+        //goBackButton = (Button) findViewById(R.id.btnGoBack);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         nameRequired = (TextView) this.findViewById(R.id.name_required);
         lastnameRequired = (TextView) this.findViewById(R.id.lastname_required);
@@ -68,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         signUpButton.setOnClickListener(this);
         toolbar.setOnClickListener(this);
 
-        presenter = new SignUpPresenter(this);
+        presenter = new SignUpPresenter(this );
     }
 
     public boolean areInputsValid() {
@@ -103,6 +102,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
 
     @Override
     public void onClearText() {
+        this.name.setText("");
+        this.lastName.setText("");
+        this.dni.setText("");
+        this.mail.setText("");
+        this.password.setText("");
+        this.confirmPassword.setText("");
     }
 
     @Override
@@ -111,10 +116,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         signUpButton.setEnabled(true);
         toolbar.setEnabled(true);
         if (success){
+            onClearText();
             Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
+            Intent intent=new Intent(SignUpActivity.this,LoginActivity.class);
             intent.putExtra("user", user);
             startActivity(intent);
+            finish();
         }
         else
             Toast.makeText(this, msg,Toast.LENGTH_SHORT).show();
@@ -123,5 +130,20 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
     @Override
     public void onSetProgressBarVisibility(int visibility) {
 
+    }
+
+    @Override
+    public void enableButton(Button button) {
+        button.setEnabled(true);
+    }
+
+    @Override
+    public void dissableButton(Button button) {
+        button.setEnabled(false);
+    }
+
+    @Override
+    public Button getBtnSignUp() {
+        return this.signUpButton;
     }
 }
