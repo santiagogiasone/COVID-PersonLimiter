@@ -30,14 +30,18 @@
     <string name="text_signin_signup">¿No tenes una cuenta?</string>
     <string name="email_required">El Email es requerido</string>
     <string name="password_required">La Contraseña es requerida</string>
+    <string name="name_required">El Nombre es requerido</string>
+    <string name="lastname_required">El Apellido es requerido</string>
+    <string name="confirm_password_does_not_match">Las Contraseñas deben coincidir</string>
+    <string name="dni_required">El DNI es requerido</string>
     <string name="pattern_text">¡Bienvenido! Ingrese el patron de desbloqueo de la aplicacion</string>
     <string name="desired_pattern">0124678</string>
     <string name="env">TEST</string>
     <integer name="commision">3900</integer>
     <integer name="group">17</integer>
     <string name="text_signup_terms">
-By signing up, you agree to our
-<b>terms and conditions</b>
+Al registrarse, usted acepta nuestros
+<b>terminos y condiciones</b>
 </string>
     <string name="text_signup_message">Hola, configuremos tu cuenta!</string>
     <string name="text_forgot_password_title">Forgot password? No worries</string>

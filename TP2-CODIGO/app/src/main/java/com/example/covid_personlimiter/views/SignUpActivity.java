@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -32,6 +33,14 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
     private EditText password;
     private EditText confirmPassword;
 
+    //Errors labels
+    private TextView nameRequired;
+    private TextView lastnameRequired;
+    private TextView mailRequired;
+    private TextView dniRequired;
+    private TextView passwordRequired;
+    private TextView passwordMatch;
+
     //Presenter
     private SignUpPresenter presenter;
 
@@ -49,6 +58,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         signUpButton = (Button) findViewById(R.id.button_signup);
         goBackButton = (Button) findViewById(R.id.btnGoBack);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        nameRequired = (TextView) this.findViewById(R.id.name_required);
+        lastnameRequired = (TextView) this.findViewById(R.id.lastname_required);
+        mailRequired = (TextView) this.findViewById(R.id.email_required);
+        dniRequired = (TextView) this.findViewById(R.id.dni_required);
+        passwordRequired = (TextView) this.findViewById(R.id.password_required);
+        passwordMatch = (TextView) this.findViewById(R.id.confirm_password_does_not_match);
 
         signUpButton.setOnClickListener(this);
         toolbar.setOnClickListener(this);
@@ -56,16 +71,33 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         presenter = new SignUpPresenter(this);
     }
 
+    public boolean areInputsValid() {
+        Boolean nameNotExists = name.getText().toString().isEmpty();
+        Boolean lastnameNotExists = lastName.getText().toString().isEmpty();
+        Boolean dniNotExists = dni.getText().toString().isEmpty();
+        Boolean mailNotExists = mail.getText().toString().isEmpty();
+        Boolean passwordNotExists = password.getText().toString().isEmpty();
+        Boolean passwordDoesMatch = password.getText().toString().equals(confirmPassword.getText().toString());
+        nameRequired.setVisibility(nameNotExists ? View.VISIBLE : View.GONE);
+        lastnameRequired.setVisibility(lastnameNotExists ? View.VISIBLE : View.GONE);
+        dniRequired.setVisibility(dniNotExists ? View.VISIBLE : View.GONE);
+        mailRequired.setVisibility(mailNotExists ? View.VISIBLE : View.GONE);
+        passwordRequired.setVisibility(passwordNotExists ? View.VISIBLE : View.GONE);
+        passwordMatch.setVisibility(passwordDoesMatch ? View.GONE : View.VISIBLE);
+        return !nameNotExists && !lastnameNotExists && !dniNotExists && !mailNotExists && passwordDoesMatch && !passwordNotExists;
+    }
+
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_signup){
-            presenter.setProgressBarVisiblity(View.VISIBLE);
-            signUpButton.setEnabled(false);
-            toolbar.setEnabled(false);
-            presenter.doSignUp(name.getText().toString(), lastName.getText().toString(), Integer.parseInt(dni.getText().toString()), mail.getText().toString(), password.getText().toString());
-        }
-        else if (v.getId() == R.id.toolbar) {
-            finish();
+        if (areInputsValid()) {
+            if (v.getId() == R.id.button_signup) {
+                presenter.setProgressBarVisiblity(View.VISIBLE);
+                signUpButton.setEnabled(false);
+                toolbar.setEnabled(false);
+                presenter.doSignUp(name.getText().toString(), lastName.getText().toString(), Integer.parseInt(dni.getText().toString()), mail.getText().toString(), password.getText().toString());
+            } else if (v.getId() == R.id.toolbar) {
+                finish();
+            }
         }
     }
 

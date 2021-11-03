@@ -61,6 +61,11 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     public void onClick(View v) {
         String editUserText = editUser.getText().toString();
         String editPassText = editPass.getText().toString();
+        if (v.getId() == R.id.signup) {
+            Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
+            startActivity(intent);
+            return;
+        }
         if (editUserText.isEmpty()) {
             userRequired.setVisibility(View.VISIBLE);
             return;
@@ -76,10 +81,6 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
                 btnLogin.setEnabled(false);
                 btnSignUp.setEnabled(false);
                 loginPresenter.doLogin(editUserText, editPassText);
-        }
-        else if (v.getId() == R.id.signup) {
-            Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
-            startActivity(intent);
         }
     }
 
