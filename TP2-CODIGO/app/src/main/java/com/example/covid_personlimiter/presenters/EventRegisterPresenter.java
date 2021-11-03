@@ -3,6 +3,7 @@ package com.example.covid_personlimiter.presenters;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.covid_personlimiter.model.RefreshCallback;
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.requests.EventRegisterRequest;
@@ -35,33 +36,37 @@ public class EventRegisterPresenter implements EventRegisterPresenterInterface {
     @Override
     public void doRegisterEvent(String type_events, String description) {
         try {
-            EventRegisterRequest request = new EventRegisterRequest();
-            request.setEnv("TEST");
-            request.setType_events(type_events);
-            request.setDescription(description);
-            //VER LA LOGICA DE ESTO PORQUE ME PIDE UNA LoggedOnInterface y solo se la puedo mandar desde la view que la implementa
-            if(user.isTokenExpired()) {
-                user.generateNewToken(mainActivity);
-            }
-            Retrofit retrofit = retrofitObj.getRetrofitInstance();
-            EventRegisterService eventRegisterService = retrofit.create(EventRegisterService.class);
-            Call<EventRegisterResponse> call = eventRegisterService.api_event_register("Bearer " + user.getToken(), request);
-            call.enqueue(new Callback<EventRegisterResponse>() {
+            RefreshCallback callback = new RefreshCallback() {
                 @Override
-                public void onResponse(Call<EventRegisterResponse> call, Response<EventRegisterResponse> response) {
-                    if (response.isSuccessful()) {
-                        Log.d("Registro Evento","Succesful");
-                    }
-                    else {
-                        Log.e("Registro Evento","Failed");
-                    }
-                }
+                public void done() {
+                    Log.d("RESPONSE", "ME ACTUALIZARON? TOKEN");
+                    Log.d("RESPONSE", user.getToken());
+                    EventRegisterRequest request = new EventRegisterRequest();
+                    request.setEnv("TEST");
+                    request.setType_events(type_events);
+                    request.setDescription(description);
+                    Retrofit retrofit = retrofitObj.getRetrofitInstance();
+                    EventRegisterService eventRegisterService = retrofit.create(EventRegisterService.class);
+                    Call<EventRegisterResponse> call = eventRegisterService.api_event_register("Bearer " + user.getToken(), request);
+                    call.enqueue(new Callback<EventRegisterResponse>() {
+                        @Override
+                        public void onResponse(Call<EventRegisterResponse> call, Response<EventRegisterResponse> response) {
+                            if (response.isSuccessful()) {
+                                Log.d("Registro Evento","Succesful");
+                            }
+                            else {
+                                Log.e("Registro Evento","Failed");
+                            }
+                        }
 
-                @Override
-                public void onFailure(Call<EventRegisterResponse> call, Throwable t) {
-                    Log.e("Registro Evento","Fallo al registrar evento");
+                        @Override
+                        public void onFailure(Call<EventRegisterResponse> call, Throwable t) {
+                            Log.e("Registro Evento","Fallo al registrar evento");
+                        }
+                    });
                 }
-            });
+            };
+            user.verifyToken(mainActivity, callback);
         } catch (Exception e)  {
             Log.d("RESPONSE", e.toString());
         }
