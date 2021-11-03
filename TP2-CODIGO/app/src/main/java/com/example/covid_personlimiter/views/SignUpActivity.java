@@ -18,8 +18,6 @@ import com.example.covid_personlimiter.presenters.SignUpPresenter;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpViewInterface, View.OnClickListener {
 
-    private Toolbar toolbar;
-
     //Buttons
     private Button signUpButton;
     private Button goBackButton;
@@ -55,7 +53,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         password = (EditText) findViewById(R.id.et_password);
         confirmPassword = (EditText) findViewById(R.id.et_confirm_password);
         signUpButton = (Button) findViewById(R.id.button_signup);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         nameRequired = (TextView) this.findViewById(R.id.name_required);
         lastnameRequired = (TextView) this.findViewById(R.id.lastname_required);
         mailRequired = (TextView) this.findViewById(R.id.email_required);
@@ -64,7 +61,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         passwordMatch = (TextView) this.findViewById(R.id.confirm_password_does_not_match);
 
         signUpButton.setOnClickListener(this);
-        toolbar.setOnClickListener(this);
 
         presenter = new SignUpPresenter(this );
     }
@@ -91,10 +87,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
             if (v.getId() == R.id.button_signup) {
                 presenter.setProgressBarVisiblity(View.VISIBLE);
                 signUpButton.setEnabled(false);
-                toolbar.setEnabled(false);
                 presenter.doSignUp(name.getText().toString(), lastName.getText().toString(), Integer.parseInt(dni.getText().toString()), mail.getText().toString(), password.getText().toString());
-            } else if (v.getId() == R.id.toolbar) {
-                finish();
             }
         }
     }
@@ -113,7 +106,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
     public void onRegisterResult(Boolean success, String msg, UserModel user) {
         presenter.setProgressBarVisiblity(View.INVISIBLE);
         signUpButton.setEnabled(true);
-        toolbar.setEnabled(true);
         if (success){
             onClearText();
             Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
