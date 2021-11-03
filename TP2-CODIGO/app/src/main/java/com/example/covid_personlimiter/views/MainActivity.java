@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         setLoginsSuccess(spThread.getLoginsSuccess());
         loginFailed = (TextView) findViewById(R.id.loginFailed);
         setLoginsFailed(spThread.getLoginsFailed());
-
+/*
         String txt = "";
         float temperature = 10;
         txt += temperature + "°C";
@@ -106,8 +106,10 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         setAforo(calcularAforo(temperature));
         setCapacityReal(calcularCapacityReal(temperature,getCapacidadMaxima()));
 
-    }
+ */
 
+    }
+/*
     private String calcularCapacityReal(float temperature, int capacidadMaxima) {
         if (temperature < 5) {
             //Aforo del 30% cuando la temperatura es menor a 5°C
@@ -131,6 +133,8 @@ public class MainActivity extends Activity implements LoggedOnInterface {
             //Aforo del 100% cuando la temperatura es mayor a 15°C
             return "100%";
     }
+
+ */
 
 
 

@@ -84,7 +84,7 @@ public class MainPresenter implements SensorEventListener {
                         activity.resetCounter();
                     }
                     break;
-                /*
+
                 case Sensor.TYPE_AMBIENT_TEMPERATURE :
                     float temperature = event.values[0];
                     txt += temperature + "°C";
@@ -92,11 +92,7 @@ public class MainPresenter implements SensorEventListener {
                     activity.setAforo(calcularAforo(temperature));
                     activity.setCapacityReal(calcularCapacityReal(temperature,activity.getCapacidadMaxima()));
                     break;
-
-                */
             }
-
-
         }
     }
 
