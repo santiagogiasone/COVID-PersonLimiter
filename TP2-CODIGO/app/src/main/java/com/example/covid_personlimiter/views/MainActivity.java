@@ -84,7 +84,7 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         Log.d("LOGUEOS:",a);
 
 
-        /*
+
         String txt = "";
         float temperature = 10;
         txt += temperature + "°C";
@@ -94,9 +94,9 @@ public class MainActivity extends Activity implements LoggedOnInterface {
 
 
 
- */
+
     }
-/*
+
     private String calcularCapacityReal(float temperature, int capacidadMaxima) {
         if (temperature < 5) {
             //Aforo del 30% cuando la temperatura es menor a 5°C
@@ -122,7 +122,7 @@ public class MainActivity extends Activity implements LoggedOnInterface {
     }
 
 
- */
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -130,11 +130,14 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         mainPresenter.iniciarSensores();
 
         buttonMinus.setOnClickListener(v -> {
+            eventRegisterPresenter.doRegisterEvent("INTERACTION","Ingreso de una persona al lugar", this.getBaseContext());
+
             contadorPersonas = mainPresenter.substract(contadorPersonas);
             counter.setText(contadorPersonas.toString());
         });
 
         buttonPlus.setOnClickListener(v -> {
+            eventRegisterPresenter.doRegisterEvent("INTERACTION","Egreso de una persona del lugar", this.getBaseContext());
             contadorPersonas = mainPresenter.add(contadorPersonas);
             counter.setText(contadorPersonas.toString());
         });
@@ -157,6 +160,8 @@ public class MainActivity extends Activity implements LoggedOnInterface {
 
     public void resetCounter()  {
         this.contadorPersonas = 0;
+        Integer c = contadorPersonas;
+        Log.d("Contador reiniciado",c.toString());
         counter.setText(contadorPersonas.toString());
     }
 
