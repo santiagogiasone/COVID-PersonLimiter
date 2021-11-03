@@ -63,11 +63,10 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         userRequired.setVisibility(View.GONE);
         passwordRequired.setVisibility(View.GONE);
         if (v.getId() == R.id.login){
-                loginPresenter.setProgressBarVisiblity(View.VISIBLE);
-                btnLogin.setEnabled(false);
-                btnSignUp.setEnabled(false);
-                loginPresenter.checkConnection(this.getBaseContext());
-                loginPresenter.doLogin(editUserText, editPassText);
+            loginPresenter.setProgressBarVisiblity(View.VISIBLE);
+            dissableButton(btnLogin);
+            loginPresenter.checkConnection(this.getBaseContext());
+            loginPresenter.doLogin(editUserText, editPassText);
         }
         else if (v.getId() == R.id.signup) {
             Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
@@ -105,5 +104,21 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     @Override
     public void onSetProgressBarVisibility(int visibility) {
         progressBar.setVisibility(visibility);
+    }
+
+    @Override
+    public void enableButton(Button button) {
+        button.setEnabled(true);
+    }
+    @Override
+    public void dissableButton(Button button) {
+        button.setEnabled(false);
+    }
+
+    public Button getBtnLogin() {
+        return this.btnLogin;
+    }
+    public Button getBtnSignUp() {
+        return this.btnSignUp;
     }
 }

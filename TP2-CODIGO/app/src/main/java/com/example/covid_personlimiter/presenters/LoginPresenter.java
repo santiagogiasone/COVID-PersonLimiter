@@ -44,6 +44,7 @@ public class LoginPresenter implements LoginPresenterInterface {
         ConnectionService connectionService = new ConnectionService();
         boolean connection = (connectionService.isNetworkConnected(context) && connectionService.isInternetAvailable());
         if(!connection) {
+            iLoginView.enableButton(iLoginView.getBtnLogin());
             Toast.makeText(context,"Error en la conexion",Toast.LENGTH_SHORT).show();
         }
     }

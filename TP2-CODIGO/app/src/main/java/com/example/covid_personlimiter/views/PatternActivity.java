@@ -3,7 +3,6 @@ package com.example.covid_personlimiter.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,6 @@ import java.util.List;
 
 public class PatternActivity extends AppCompatActivity implements PatternLockViewListener {
     private PatternLockView pattern;
-    private LinearLayout linearLayout;
     private PatternPresenter patternPresenter;
 
     @Override
