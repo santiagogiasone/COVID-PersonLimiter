@@ -55,30 +55,40 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
     }
 
+    public boolean areInputsValid() {
+        Boolean userNotExists = editUser.getText().toString().isEmpty();
+        Boolean passwordNotExists = editPass.getText().toString().isEmpty();
+        userRequired.setVisibility(userNotExists ? View.VISIBLE : View.GONE);
+        passwordRequired.setVisibility(passwordNotExists ? View.VISIBLE : View.GONE);
+        return !userNotExists && !passwordNotExists;
+    }
+
     @Override
     public void onClick(View v) {
-        String editUserText = editUser.getText().toString();
-        String editPassText = editPass.getText().toString();
-        if (v.getId() == R.id.login){
-            if (editUserText.isEmpty()) {
-                userRequired.setVisibility(View.VISIBLE);
-                return;
-            }
-            if (editPassText.isEmpty()) {
-                passwordRequired.setVisibility(View.VISIBLE);
-                return;
-            }
-            userRequired.setVisibility(View.GONE);
-            passwordRequired.setVisibility(View.GONE);
-            loginPresenter.setProgressBarVisiblity(View.VISIBLE);
-            dissableButton(btnLogin);
-            loginPresenter.checkConnection(this.getBaseContext());
-            loginPresenter.doLogin(editUserText, editPassText);
-        }
-        else if (v.getId() == R.id.signup) {
+        if (v.getId() == R.id.signup) {
             Intent intent=new Intent(LoginActivity.this,SignUpActivity.class);
             startActivity(intent);
-            finish();
+            return;
+        }
+        if (areInputsValid()) {
+            String editUserText = editUser.getText().toString();
+            String editPassText = editPass.getText().toString();
+            if (v.getId() == R.id.login) {
+                if (editUserText.isEmpty()) {
+                    userRequired.setVisibility(View.VISIBLE);
+                    return;
+                }
+                if (editPassText.isEmpty()) {
+                    passwordRequired.setVisibility(View.VISIBLE);
+                    return;
+                }
+                userRequired.setVisibility(View.GONE);
+                passwordRequired.setVisibility(View.GONE);
+                loginPresenter.setProgressBarVisiblity(View.VISIBLE);
+                dissableButton(btnLogin);
+                loginPresenter.checkConnection(this.getBaseContext());
+                loginPresenter.doLogin(editUserText, editPassText);
+            }
         }
     }
 
@@ -103,7 +113,6 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
             intent.putExtra("loginSuccess",this.loginSuccess);
             intent.putExtra("loginFailed",this.loginFailed);
             startActivity(intent);
-            finish();
         }
         else {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

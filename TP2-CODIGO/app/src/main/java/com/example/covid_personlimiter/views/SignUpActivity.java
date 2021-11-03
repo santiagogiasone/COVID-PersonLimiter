@@ -18,8 +18,6 @@ import com.example.covid_personlimiter.presenters.SignUpPresenter;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpViewInterface, View.OnClickListener {
 
-    private Toolbar toolbar;
-
     //Buttons
     private Button signUpButton;
     private Button goBackButton;
@@ -32,12 +30,13 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
     private EditText password;
     private EditText confirmPassword;
 
-    private TextView nameRequiered;
-    private TextView lastNameRequiered;
-    private TextView dniRequiered;
-    private TextView mailRequeired;
-    private TextView passRequeired;
-    private TextView confirmPassRequeried;
+    //Errors labels
+    private TextView nameRequired;
+    private TextView lastnameRequired;
+    private TextView mailRequired;
+    private TextView dniRequired;
+    private TextView passwordRequired;
+    private TextView passwordMatch;
 
     //Presenter
     private SignUpPresenter presenter;
@@ -54,76 +53,42 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         password = (EditText) findViewById(R.id.et_password);
         confirmPassword = (EditText) findViewById(R.id.et_confirm_password);
         signUpButton = (Button) findViewById(R.id.button_signup);
-        //goBackButton = (Button) findViewById(R.id.btnGoBack);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        nameRequiered = (TextView) this.findViewById(R.id.nameRequiered);
-        lastNameRequiered = (TextView) this.findViewById(R.id.lastNameRequiered);
-        dniRequiered = (TextView) this.findViewById(R.id.dniRequiered);
-        mailRequeired = (TextView) this.findViewById(R.id.mailRequeired);
-        passRequeired = (TextView) this.findViewById(R.id.passRequeired);
-        confirmPassRequeried = (TextView) this.findViewById(R.id.confirmPassRequeried);
+        nameRequired = (TextView) this.findViewById(R.id.name_required);
+        lastnameRequired = (TextView) this.findViewById(R.id.lastname_required);
+        mailRequired = (TextView) this.findViewById(R.id.email_required);
+        dniRequired = (TextView) this.findViewById(R.id.dni_required);
+        passwordRequired = (TextView) this.findViewById(R.id.password_required);
+        passwordMatch = (TextView) this.findViewById(R.id.confirm_password_does_not_match);
 
         signUpButton.setOnClickListener(this);
-        toolbar.setOnClickListener(this);
 
         presenter = new SignUpPresenter(this );
     }
 
+    public boolean areInputsValid() {
+        Boolean nameNotExists = name.getText().toString().isEmpty();
+        Boolean lastnameNotExists = lastName.getText().toString().isEmpty();
+        Boolean dniNotExists = dni.getText().toString().isEmpty();
+        Boolean mailNotExists = mail.getText().toString().isEmpty();
+        Boolean passwordNotExists = password.getText().toString().isEmpty();
+        Boolean passwordDoesMatch = password.getText().toString().equals(confirmPassword.getText().toString());
+        nameRequired.setVisibility(nameNotExists ? View.VISIBLE : View.GONE);
+        lastnameRequired.setVisibility(lastnameNotExists ? View.VISIBLE : View.GONE);
+        dniRequired.setVisibility(dniNotExists ? View.VISIBLE : View.GONE);
+        mailRequired.setVisibility(mailNotExists ? View.VISIBLE : View.GONE);
+        passwordRequired.setVisibility(passwordNotExists ? View.VISIBLE : View.GONE);
+        passwordMatch.setVisibility(passwordDoesMatch ? View.GONE : View.VISIBLE);
+        return !nameNotExists && !lastnameNotExists && !dniNotExists && !mailNotExists && passwordDoesMatch && !passwordNotExists;
+    }
+
     @Override
     public void onClick(View v) {
-        String editName = name.getText().toString();
-        String editLastName = lastName.getText().toString();
-        String editDni = dni.getText().toString();
-        String editMail = mail.getText().toString();
-        String editPassword = password.getText().toString();
-        String editConfirmPassword = confirmPassword.getText().toString();
-
-        if (v.getId() == R.id.button_signup) {
-            if (editName.isEmpty()) {
-                nameRequiered.setVisibility(View.VISIBLE);
-                return;
+        if (areInputsValid()) {
+            if (v.getId() == R.id.button_signup) {
+                presenter.setProgressBarVisiblity(View.VISIBLE);
+                signUpButton.setEnabled(false);
+                presenter.doSignUp(name.getText().toString(), lastName.getText().toString(), Integer.parseInt(dni.getText().toString()), mail.getText().toString(), password.getText().toString());
             }
-            nameRequiered.setVisibility(View.GONE);
-
-            if (editLastName.isEmpty()) {
-                lastNameRequiered.setVisibility(View.VISIBLE);
-                return;
-            }
-            lastNameRequiered.setVisibility(View.GONE);
-
-            if (editDni.isEmpty()) {
-                dniRequiered.setVisibility(View.VISIBLE);
-                return;
-            }
-            dniRequiered.setVisibility(View.GONE);
-
-            if (editMail.isEmpty()) {
-                mailRequeired.setVisibility(View.VISIBLE);
-                return;
-            }
-            mailRequeired.setVisibility(View.GONE);
-
-            if (editPassword.isEmpty()) {
-                passRequeired.setVisibility(View.VISIBLE);
-                return;
-            }
-            passRequeired.setVisibility(View.GONE);
-
-            if (editConfirmPassword.isEmpty()) {
-                confirmPassRequeried.setVisibility(View.VISIBLE);
-                return;
-            }
-            confirmPassRequeried.setVisibility(View.GONE);
-
-            presenter.setProgressBarVisiblity(View.VISIBLE);
-            dissableButton(signUpButton);
-            toolbar.setEnabled(false);
-            presenter.checkConnection(this.getBaseContext());
-            presenter.doSignUp(editName, editLastName, Integer.parseInt(editDni), editMail, editPassword);
-        }
-        else if (v.getId() == R.id.toolbar) {
-            finish();
         }
     }
 
@@ -141,11 +106,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
     public void onRegisterResult(Boolean success, String msg, UserModel user) {
         presenter.setProgressBarVisiblity(View.INVISIBLE);
         signUpButton.setEnabled(true);
-        toolbar.setEnabled(true);
         if (success){
             onClearText();
             Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(SignUpActivity.this,LoginActivity.class);
+            Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
             intent.putExtra("user", user);
             startActivity(intent);
             finish();
