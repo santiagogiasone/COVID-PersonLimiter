@@ -91,6 +91,19 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:id="@+id/nameRequiered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|start"
+                android:layout_marginLeft="40dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/name_required"
+                android:textColor="#E60000"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -123,8 +136,22 @@
                         android:minWidth="320dp"
                         android:minHeight="45dp"
                         android:singleLine="true" />
+
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/lastNameRequiered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|start"
+                android:layout_marginLeft="40dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/lastname_required"
+                android:textColor="#E60000"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -160,8 +187,20 @@
                         android:minHeight="45dp"
                         android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/dniRequiered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|start"
+                android:layout_marginLeft="40dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/dni_required"
+                android:textColor="#E60000"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -196,8 +235,20 @@
                         android:minHeight="45dp"
                         android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/mailRequeired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|start"
+                android:layout_marginLeft="40dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/email_required"
+                android:textColor="#E60000"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -234,6 +285,19 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:id="@+id/passRequeired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|start"
+                android:layout_marginLeft="40dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/password_required"
+                android:textColor="#E60000"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -269,6 +333,19 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:id="@+id/confirmPassRequeried"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|start"
+                android:layout_marginLeft="40dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/password_confirm_required"
+                android:textColor="#E60000"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <Button
                 android:id="@+id/button_signup"
                 style="@style/Button1"
@@ -289,4 +366,5 @@
                 android:textSize="13sp" />
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>

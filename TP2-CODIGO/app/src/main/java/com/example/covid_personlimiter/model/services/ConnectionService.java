@@ -2,7 +2,6 @@ package com.example.covid_personlimiter.model.services;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.util.Log;
 
 import java.net.InetAddress;
 
@@ -20,7 +19,6 @@ public class ConnectionService {
             InetAddress ipAddr = InetAddress.getByName(BASE_URL);
             return !ipAddr.equals("");
         } catch (Exception e) {
-            Log.e("Connection","Error en la conexion");
             return false;
         }
     }

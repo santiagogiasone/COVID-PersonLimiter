@@ -2,10 +2,10 @@ package com.example.covid_personlimiter.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -32,6 +32,13 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
     private EditText password;
     private EditText confirmPassword;
 
+    private TextView nameRequiered;
+    private TextView lastNameRequiered;
+    private TextView dniRequiered;
+    private TextView mailRequeired;
+    private TextView passRequeired;
+    private TextView confirmPassRequeried;
+
     //Presenter
     private SignUpPresenter presenter;
 
@@ -50,19 +57,70 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         goBackButton = (Button) findViewById(R.id.btnGoBack);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        nameRequiered = (TextView) this.findViewById(R.id.nameRequiered);
+        lastNameRequiered = (TextView) this.findViewById(R.id.lastNameRequiered);
+        dniRequiered = (TextView) this.findViewById(R.id.dniRequiered);
+        mailRequeired = (TextView) this.findViewById(R.id.mailRequeired);
+        passRequeired = (TextView) this.findViewById(R.id.passRequeired);
+        confirmPassRequeried = (TextView) this.findViewById(R.id.confirmPassRequeried);
+
         signUpButton.setOnClickListener(this);
         toolbar.setOnClickListener(this);
 
-        presenter = new SignUpPresenter(this);
+        presenter = new SignUpPresenter(this );
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_signup){
+        String editName = name.getText().toString();
+        String editLastName = lastName.getText().toString();
+        String editDni = dni.getText().toString();
+        String editMail = mail.getText().toString();
+        String editPassword = password.getText().toString();
+        String editConfirmPassword = confirmPassword.getText().toString();
+
+        if (v.getId() == R.id.button_signup) {
+            if (editName.isEmpty()) {
+                nameRequiered.setVisibility(View.VISIBLE);
+                return;
+            }
+            nameRequiered.setVisibility(View.GONE);
+
+            if (editLastName.isEmpty()) {
+                lastNameRequiered.setVisibility(View.VISIBLE);
+                return;
+            }
+            lastNameRequiered.setVisibility(View.GONE);
+
+            if (editDni.isEmpty()) {
+                dniRequiered.setVisibility(View.VISIBLE);
+                return;
+            }
+            dniRequiered.setVisibility(View.GONE);
+
+            if (editMail.isEmpty()) {
+                mailRequeired.setVisibility(View.VISIBLE);
+                return;
+            }
+            mailRequeired.setVisibility(View.GONE);
+
+            if (editPassword.isEmpty()) {
+                passRequeired.setVisibility(View.VISIBLE);
+                return;
+            }
+            passRequeired.setVisibility(View.GONE);
+
+            if (editConfirmPassword.isEmpty()) {
+                confirmPassRequeried.setVisibility(View.VISIBLE);
+                return;
+            }
+            confirmPassRequeried.setVisibility(View.GONE);
+
             presenter.setProgressBarVisiblity(View.VISIBLE);
-            signUpButton.setEnabled(false);
+            dissableButton(signUpButton);
             toolbar.setEnabled(false);
-            presenter.doSignUp(name.getText().toString(), lastName.getText().toString(), Integer.parseInt(dni.getText().toString()), mail.getText().toString(), password.getText().toString());
+            presenter.checkConnection(this.getBaseContext());
+            presenter.doSignUp(editName, editLastName, Integer.parseInt(editDni), editMail, editPassword);
         }
         else if (v.getId() == R.id.toolbar) {
             finish();
@@ -91,5 +149,20 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
     @Override
     public void onSetProgressBarVisibility(int visibility) {
 
+    }
+
+    @Override
+    public void enableButton(Button button) {
+        button.setEnabled(true);
+    }
+
+    @Override
+    public void dissableButton(Button button) {
+        button.setEnabled(false);
+    }
+
+    @Override
+    public Button getBtnSignUp() {
+        return this.signUpButton;
     }
 }

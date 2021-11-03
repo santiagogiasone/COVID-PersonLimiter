@@ -74,7 +74,7 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         //user.generateNewToken(this);
 
         eventRegisterPresenter = new EventRegisterPresenter(user, this);
-        eventRegisterPresenter.doRegisterEvent("LOGIN","Registro del Login en onCreate method");
+        eventRegisterPresenter.doRegisterEvent("LOGIN","Registro del Login en onCreate method", this.getBaseContext());
 /*
         String txt = "";
         float temperature = 10;

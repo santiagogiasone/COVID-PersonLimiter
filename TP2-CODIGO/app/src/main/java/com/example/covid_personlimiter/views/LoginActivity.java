@@ -52,17 +52,17 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     public void onClick(View v) {
         String editUserText = editUser.getText().toString();
         String editPassText = editPass.getText().toString();
-        if (editUserText.isEmpty()) {
-            userRequired.setVisibility(View.VISIBLE);
-            return;
-        }
-        if (editPassText.isEmpty()) {
-            passwordRequired.setVisibility(View.VISIBLE);
-            return;
-        }
-        userRequired.setVisibility(View.GONE);
-        passwordRequired.setVisibility(View.GONE);
         if (v.getId() == R.id.login){
+            if (editUserText.isEmpty()) {
+                userRequired.setVisibility(View.VISIBLE);
+                return;
+            }
+            if (editPassText.isEmpty()) {
+                passwordRequired.setVisibility(View.VISIBLE);
+                return;
+            }
+            userRequired.setVisibility(View.GONE);
+            passwordRequired.setVisibility(View.GONE);
             loginPresenter.setProgressBarVisiblity(View.VISIBLE);
             dissableButton(btnLogin);
             loginPresenter.checkConnection(this.getBaseContext());

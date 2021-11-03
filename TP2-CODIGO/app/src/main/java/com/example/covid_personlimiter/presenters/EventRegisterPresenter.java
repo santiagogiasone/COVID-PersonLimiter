@@ -1,7 +1,9 @@
 package com.example.covid_personlimiter.presenters;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.RefreshCallback;
@@ -9,6 +11,7 @@ import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.requests.EventRegisterRequest;
 import com.example.covid_personlimiter.model.responses.EventRegisterResponse;
+import com.example.covid_personlimiter.model.services.ConnectionService;
 import com.example.covid_personlimiter.model.services.EventRegisterService;
 import com.example.covid_personlimiter.views.MainActivity;
 
@@ -30,8 +33,9 @@ public class EventRegisterPresenter implements EventRegisterPresenterInterface {
     }
 
     @Override
-    public void doRegisterEvent(String type_events, String description) {
+    public void doRegisterEvent(String type_events, String description, Context context) {
         try {
+            checkConnection(context);
             RefreshCallback callback = new RefreshCallback() {
                 @Override
                 public void done() {
@@ -66,6 +70,15 @@ public class EventRegisterPresenter implements EventRegisterPresenterInterface {
             user.verifyToken(mainActivity, callback);
         } catch (Exception e)  {
             Log.d("RESPONSE", e.toString());
+        }
+    }
+
+    @Override
+    public void checkConnection(Context context) {
+        ConnectionService connectionService = new ConnectionService();
+        boolean connection = (connectionService.isNetworkConnected(context) && connectionService.isInternetAvailable());
+        if(!connection) {
+            Toast.makeText(context,"Error en la conexion",Toast.LENGTH_SHORT).show();
         }
     }
 }

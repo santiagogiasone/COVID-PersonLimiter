@@ -30,6 +30,10 @@
     <string name="text_signin_signup">¿No tenes una cuenta?</string>
     <string name="email_required">El Email es requerido</string>
     <string name="password_required">La Contraseña es requerida</string>
+    <string name="password_confirm_required">La Confirmacion de Contraseña es requerida</string>
+    <string name="name_required">El nombre es requerido</string>
+    <string name="lastname_required">El apellido es requerido</string>
+    <string name="dni_required">El DNI es requerido</string>
     <string name="pattern_text">¡Bienvenido! Ingrese el patron de desbloqueo de la aplicacion</string>
     <string name="desired_pattern">0124678</string>
     <string name="env">TEST</string>

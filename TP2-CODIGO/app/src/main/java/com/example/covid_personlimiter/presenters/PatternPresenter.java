@@ -11,7 +11,6 @@ public class PatternPresenter {
     public PatternPresenter() {
     }
 
-
     public void getBatteryInfo(Context baseContext) {
         baseContext.registerReceiver(new BatteryInfoService(), new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
