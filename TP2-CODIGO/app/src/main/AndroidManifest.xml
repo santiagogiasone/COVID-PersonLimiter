@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.covid_personlimiter" >
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +15,8 @@
         <activity
             android:name=".views.PatternActivity"
             android:exported="true"
-            android:label="@string/title_activity_pattern">
+            android:label="@string/title_activity_pattern"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,12 +25,18 @@
         </activity>
         <activity
             android:name=".views.LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".views.SignUpActivity"
-            android:label="@string/title_activity_signup" />
+            android:label="@string/title_activity_signup"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".views.MainActivity"
-            android:label="@string/title_activity_main" />
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 </manifest>

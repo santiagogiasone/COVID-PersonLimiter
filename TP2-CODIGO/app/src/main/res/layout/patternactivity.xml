@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    android:orientation="vertical"
     android:fillViewport="true"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".views.LoginActivity">
 
     <RelativeLayout
@@ -18,14 +18,14 @@
         android:scrollbarThumbVertical="@null">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="700dp"
-            android:layout_centerVertical="true"
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="32dp"

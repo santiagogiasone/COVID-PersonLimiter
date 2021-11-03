@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.andrognito.patternlockview:patternlockview:1.0.0@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2accf6c697068706f4aea1d779a167b9/transformed/jetified-patternlockview-1.0.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0e505caf287f00b95f7e94f5d44359f1/transformed/jetified-patternlockview-1.0.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2accf6c697068706f4aea1d779a167b9/transformed/jetified-patternlockview-1.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2accf6c697068706f4aea1d779a167b9/transformed/jetified-patternlockview-1.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2accf6c697068706f4aea1d779a167b9/transformed/jetified-patternlockview-1.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0e505caf287f00b95f7e94f5d44359f1/transformed/jetified-patternlockview-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0e505caf287f00b95f7e94f5d44359f1/transformed/jetified-patternlockview-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0e505caf287f00b95f7e94f5d44359f1/transformed/jetified-patternlockview-1.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.andrognito.patternlockview/patternlockview/1.0.0/b9ff2b969b97532fc830d416f48aa5bf5ae683a1/patternlockview-1.0.0-javadoc.jar!/" />

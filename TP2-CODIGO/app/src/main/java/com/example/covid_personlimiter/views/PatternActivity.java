@@ -1,12 +1,9 @@
 package com.example.covid_personlimiter.views;
 
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,12 +12,14 @@ import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.example.covid_personlimiter.R;
-import com.example.covid_personlimiter.model.UserModel;
+import com.example.covid_personlimiter.presenters.PatternPresenter;
 
 import java.util.List;
 
 public class PatternActivity extends AppCompatActivity implements PatternLockViewListener {
     private PatternLockView pattern;
+    private LinearLayout linearLayout;
+    private PatternPresenter patternPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +29,9 @@ public class PatternActivity extends AppCompatActivity implements PatternLockVie
         pattern = (PatternLockView) findViewById(R.id.pattern_lock_view);
         pattern.addPatternLockListener(this);
 
+        //GetBatteryInfo
+        patternPresenter = new PatternPresenter();
+        patternPresenter.getBatteryInfo(this.getBaseContext());
     }
 
     @Override

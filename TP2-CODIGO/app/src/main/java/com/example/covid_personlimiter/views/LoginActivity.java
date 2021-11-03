@@ -1,11 +1,6 @@
 package com.example.covid_personlimiter.views;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.UserModel;
-import com.example.covid_personlimiter.model.services.BatteryInfoService;
 import com.example.covid_personlimiter.presenters.LoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements LoginViewInterface, View.OnClickListener {
@@ -52,9 +46,6 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         //init
         loginPresenter = new LoginPresenter(this);
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
-
-        //BatteryInfo
-        loginPresenter.getBatteryInfo(this.getBaseContext());
     }
 
     @Override
@@ -75,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
                 loginPresenter.setProgressBarVisiblity(View.VISIBLE);
                 btnLogin.setEnabled(false);
                 btnSignUp.setEnabled(false);
+                loginPresenter.checkConnection(this.getBaseContext());
                 loginPresenter.doLogin(editUserText, editPassText);
         }
         else if (v.getId() == R.id.signup) {
