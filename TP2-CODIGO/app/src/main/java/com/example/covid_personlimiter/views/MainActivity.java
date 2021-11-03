@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         Log.d("RESPONSE:", user.getRefreshToken());
 
         eventRegisterPresenter = new EventRegisterPresenter(user, this);
-        eventRegisterPresenter.doRegisterEvent("LOGIN","Registro del Login en onCreate method", this.getBaseContext());
+        eventRegisterPresenter.doRegisterEvent("LOGIN","Se autentica en la aplicacion (Login)", this.getBaseContext());
 
 
         //SharedPreferences

@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     private int loginSuccess;
     private int loginFailed;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,6 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
         //init
         loginPresenter = new LoginPresenter(this);
         loginPresenter.setProgressBarVisiblity(View.INVISIBLE);
-
     }
 
     @Override
