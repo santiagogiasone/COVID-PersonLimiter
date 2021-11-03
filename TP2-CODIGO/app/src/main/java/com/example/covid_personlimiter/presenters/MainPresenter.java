@@ -23,6 +23,9 @@ public class MainPresenter implements SensorEventListener {
     private Sensor sensorTemperature;
     private Sensor sensorAccelerometer;
 
+    private double previousValueAcc;
+    private double currentValueAcc;
+
     //Models??
 
     DecimalFormat dosdecimales = new DecimalFormat("###.###");
@@ -62,7 +65,6 @@ public class MainPresenter implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         String txt = "";
-        float temperature;
         synchronized (this)
         {
             Log.d("sensor", event.sensor.getName());
@@ -70,18 +72,21 @@ public class MainPresenter implements SensorEventListener {
             switch(event.sensor.getType())
             {
                 case Sensor.TYPE_ACCELEROMETER :
-                    txt += "Acelerometro:\n";
-                    txt += "x: " + dosdecimales.format(event.values[0]) + " m/seg2 \n";
-                    txt += "y: " + dosdecimales.format(event.values[1]) + " m/seg2 \n";
-                    txt += "z: " + dosdecimales.format(event.values[2]) + " m/seg2 \n";
+                    float x = event.values[0];
+                    float y = event.values[1];
+                    float z = event.values[2];
 
-                    if ((Math.abs(event.values[0]) > 25) || (Math.abs(event.values[1]) > 25) || (Math.abs(event.values[2]) > 25)) {
+                    currentValueAcc = Math.sqrt((x * x + y * y + z * z));
+                    double changeInAcc = Math.abs(currentValueAcc - previousValueAcc);
+                    previousValueAcc = currentValueAcc;
+
+                    if (changeInAcc > 10) {
                         activity.resetCounter();
                     }
                     break;
 
                 case Sensor.TYPE_AMBIENT_TEMPERATURE :
-                    temperature = event.values[0];
+                    float temperature = event.values[0];
                     txt += temperature + "°C";
                     activity.setTemperature(txt);
                     activity.setAforo(calcularAforo(temperature));

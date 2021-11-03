@@ -1,19 +1,18 @@
 package com.example.covid_personlimiter.presenters;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.RefreshCallback;
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.requests.EventRegisterRequest;
-import com.example.covid_personlimiter.model.requests.LoginRequest;
 import com.example.covid_personlimiter.model.responses.EventRegisterResponse;
-import com.example.covid_personlimiter.model.responses.LoginResponse;
+import com.example.covid_personlimiter.model.services.ConnectionService;
 import com.example.covid_personlimiter.model.services.EventRegisterService;
-import com.example.covid_personlimiter.model.services.LoginService;
-import com.example.covid_personlimiter.views.LoggedOnInterface;
-import com.example.covid_personlimiter.views.LoginActivity;
 import com.example.covid_personlimiter.views.MainActivity;
 
 import retrofit2.Call;
@@ -34,15 +33,17 @@ public class EventRegisterPresenter implements EventRegisterPresenterInterface {
     }
 
     @Override
-    public void doRegisterEvent(String type_events, String description) {
+    public void doRegisterEvent(String type_events, String description, Context context) {
         try {
+            checkConnection(context);
             RefreshCallback callback = new RefreshCallback() {
                 @Override
                 public void done() {
+                    Resources resource = mainActivity.getResources();
                     Log.d("RESPONSE", "ME ACTUALIZARON? TOKEN");
                     Log.d("RESPONSE", user.getToken());
                     EventRegisterRequest request = new EventRegisterRequest();
-                    request.setEnv("TEST");
+                    request.setEnv(resource.getString(R.string.env));
                     request.setType_events(type_events);
                     request.setDescription(description);
                     Retrofit retrofit = retrofitObj.getRetrofitInstance();
@@ -69,6 +70,16 @@ public class EventRegisterPresenter implements EventRegisterPresenterInterface {
             user.verifyToken(mainActivity, callback);
         } catch (Exception e)  {
             Log.d("RESPONSE", e.toString());
+        }
+    }
+
+    @Override
+    public void checkConnection(Context context) {
+        ConnectionService connectionService = new ConnectionService();
+        //&& connectionService.isInternetAvailable()
+        boolean connection = (connectionService.isNetworkConnected(context));
+        if(!connection) {
+            Toast.makeText(context,"Error en la conexion",Toast.LENGTH_SHORT).show();
         }
     }
 }

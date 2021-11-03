@@ -1,11 +1,6 @@
 package com.example.covid_personlimiter.presenters;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -15,9 +10,8 @@ import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.requests.LoginRequest;
 import com.example.covid_personlimiter.model.responses.LoginResponse;
-import com.example.covid_personlimiter.model.services.BatteryInfoService;
+import com.example.covid_personlimiter.model.services.ConnectionService;
 import com.example.covid_personlimiter.model.services.LoginService;
-import com.example.covid_personlimiter.views.LoginActivity;
 import com.example.covid_personlimiter.views.LoginViewInterface;
 
 import java.util.UUID;
@@ -43,6 +37,17 @@ public class LoginPresenter implements LoginPresenterInterface {
     @Override
     public void clear() {
         iLoginView.onClearText();
+    }
+
+    @Override
+    public void checkConnection(Context context) {
+        ConnectionService connectionService = new ConnectionService();
+        //&& connectionService.isInternetAvailable()
+        boolean connection = (connectionService.isNetworkConnected(context));
+        if(!connection) {
+            iLoginView.enableButton(iLoginView.getBtnLogin());
+            Toast.makeText(context,"Error en la conexion",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -85,10 +90,5 @@ public class LoginPresenter implements LoginPresenterInterface {
 
     private void initUser(){
         user = new UserModel(UUID.randomUUID().toString());
-    }
-
-
-    public void getBatteryInfo(Context baseContext) {
-        baseContext.registerReceiver(new BatteryInfoService(), new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 }

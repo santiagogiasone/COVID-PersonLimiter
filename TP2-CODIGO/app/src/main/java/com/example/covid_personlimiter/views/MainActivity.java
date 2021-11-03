@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.example.covid_personlimiter.R;
+import com.example.covid_personlimiter.model.SharedPreferencesThread;
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.presenters.EventRegisterPresenter;
 import com.example.covid_personlimiter.presenters.MainPresenter;
@@ -20,6 +21,8 @@ public class MainActivity extends Activity implements LoggedOnInterface {
     //Buttons
     private Button buttonPlus;
     private Button buttonMinus;
+    private Button buttonClearLogins;
+
 
     //Texts
     private TextView counter;
@@ -27,6 +30,9 @@ public class MainActivity extends Activity implements LoggedOnInterface {
     private TextView temperature;
     private TextView aforo;
     private TextView capacityReal;
+    private TextView loginSuccess;
+    private TextView loginFailed;
+
 
     //Contador
     private Integer contadorPersonas = 0;
@@ -38,6 +44,10 @@ public class MainActivity extends Activity implements LoggedOnInterface {
     //Presenter
     private MainPresenter mainPresenter;
     private EventRegisterPresenter eventRegisterPresenter;
+
+    //SharedPreferences
+    private SharedPreferencesThread spThread;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +62,8 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         //Definicion de los botones
         buttonPlus = (Button) findViewById(R.id.buttonPlus);
         buttonMinus = (Button) findViewById(R.id.buttonMinus);
+        buttonClearLogins = (Button) findViewById(R.id.buttonClearLogins);
+
 
         //Definicion de los textos variables de la app.
         counter = (TextView) findViewById(R.id.counter);
@@ -65,16 +77,27 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         capacityReal = (TextView) findViewById(R.id.capacityReal);
 
         intent = getIntent();
+        Bundle extras = intent.getExtras();
         user = (UserModel) intent.getSerializableExtra("user");
         Log.d("RESPONSE:", user.getUserId());
         Log.d("RESPONSE:", user.getDisplayName());
         Log.d("RESPONSE:", user.getToken());
         Log.d("RESPONSE:", user.getRefreshToken());
 
-        //user.generateNewToken(this);
-
         eventRegisterPresenter = new EventRegisterPresenter(user, this);
-        eventRegisterPresenter.doRegisterEvent("LOGIN","Registro del Login en onCreate method");
+        eventRegisterPresenter.doRegisterEvent("LOGIN","Se autentica en la aplicacion (Login)", this.getBaseContext());
+
+
+        //SharedPreferences
+        spThread = new SharedPreferencesThread(this.getBaseContext());
+        spThread.savePreferences(extras.getInt("loginSuccess"),extras.getInt("loginFailed"));
+        String a = spThread.getPreferences();
+        Log.d("LOGUEOS:",a);
+
+        loginSuccess = (TextView) findViewById(R.id.loginSuccess);
+        setLoginsSuccess(spThread.getLoginsSuccess());
+        loginFailed = (TextView) findViewById(R.id.loginFailed);
+        setLoginsFailed(spThread.getLoginsFailed());
 /*
         String txt = "";
         float temperature = 10;
@@ -84,6 +107,7 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         setCapacityReal(calcularCapacityReal(temperature,getCapacidadMaxima()));
 
  */
+
     }
 /*
     private String calcularCapacityReal(float temperature, int capacidadMaxima) {
@@ -110,8 +134,10 @@ public class MainActivity extends Activity implements LoggedOnInterface {
             return "100%";
     }
 
-
  */
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -119,15 +145,23 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         mainPresenter.iniciarSensores();
 
         buttonMinus.setOnClickListener(v -> {
+            eventRegisterPresenter.doRegisterEvent("INTERACTION","Ingreso de una persona al lugar", this.getBaseContext());
             contadorPersonas = mainPresenter.substract(contadorPersonas);
             counter.setText(contadorPersonas.toString());
         });
 
         buttonPlus.setOnClickListener(v -> {
+            eventRegisterPresenter.doRegisterEvent("INTERACTION","Egreso de una persona del lugar", this.getBaseContext());
             contadorPersonas = mainPresenter.add(contadorPersonas);
             counter.setText(contadorPersonas.toString());
         });
 
+        buttonClearLogins.setOnClickListener(v -> {
+            eventRegisterPresenter.doRegisterEvent("INTERACTION","Se limpia el archivo de SharedPreference", this.getBaseContext());
+            spThread.clearFile();
+            setLoginsSuccess(0);
+            setLoginsFailed(0);
+        });
     }
 
     public void setTemperature(String temperature)  {
@@ -145,8 +179,22 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         this.capacityReal.setText(capacityReal);
     }
 
+    public void setLoginsSuccess(int loginsSuccess) {
+        Integer lS = loginsSuccess;
+        Log.d("LOGUEOS EXITOSOS: ", lS.toString());
+        this.loginSuccess.setText(lS.toString());
+    }
+
+    public void setLoginsFailed(int loginsFailed) {
+        Integer lF = loginsFailed;
+        Log.d("LOGUEOS FALLIDOS: ", lF.toString());
+        this.loginFailed.setText(lF.toString());
+    }
+
     public void resetCounter()  {
         this.contadorPersonas = 0;
+        Integer c = contadorPersonas;
+        Log.d("Contador reiniciado",c.toString());
         counter.setText(contadorPersonas.toString());
     }
 

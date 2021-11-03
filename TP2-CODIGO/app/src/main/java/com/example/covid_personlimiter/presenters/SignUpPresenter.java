@@ -1,19 +1,21 @@
 package com.example.covid_personlimiter.presenters;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.requests.SignUpRequest;
 import com.example.covid_personlimiter.model.responses.SignUpResponse;
+import com.example.covid_personlimiter.model.services.ConnectionService;
 import com.example.covid_personlimiter.model.services.SignUpService;
-import com.example.covid_personlimiter.views.SignUpActivity;
+import com.example.covid_personlimiter.views.SignUpViewInterface;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.UUID;
@@ -24,13 +26,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class SignUpPresenter implements SignUpPresenterInterface {
-    private SignUpActivity SignUpView;
+    private SignUpViewInterface signUpViewInterface;
     private UserModel user;
     private Handler handler;
     private RetrofitInstance retrofitObj;
 
-    public SignUpPresenter(SignUpActivity SignUpView) {
-        this.SignUpView = SignUpView;
+
+    public SignUpPresenter(SignUpViewInterface signUpViewInterface) {
+        this.signUpViewInterface = signUpViewInterface;
         this.retrofitObj = new RetrofitInstance();
         initUser();
         handler = new Handler(Looper.getMainLooper());
@@ -38,13 +41,24 @@ public class SignUpPresenter implements SignUpPresenterInterface {
 
     @Override
     public void clear() {
-        SignUpView.onClearText();
+        signUpViewInterface.onClearText();
+    }
+
+    @Override
+    public void checkConnection(Context context) {
+        ConnectionService connectionService = new ConnectionService();
+        //&& connectionService.isInternetAvailable()
+        boolean connection = (connectionService.isNetworkConnected(context) );
+        if(!connection) {
+            signUpViewInterface.enableButton(signUpViewInterface.getBtnSignUp());
+            Toast.makeText(context,"Error en la conexion",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void doSignUp(String name, String lastname, Integer dni, String email, String passwd) {
         try {
-            Resources resource = SignUpView.getResources();
+            Resources resource = signUpViewInterface.getResources();
             SignUpRequest request = new SignUpRequest();
             request.setName(name);
             request.setLastname(lastname);
@@ -64,22 +78,22 @@ public class SignUpPresenter implements SignUpPresenterInterface {
                         user.setDisplayName(email);
                         user.setToken(response.body().getToken());
                         user.setRefreshToken(response.body().getToken_refresh());
-                        SignUpView.onRegisterResult(response.body().getSuccess(), "Cuenta Registrada Exitosamente", user);
+                        signUpViewInterface.onRegisterResult(response.body().getSuccess(), "Cuenta Registrada Exitosamente", user);
                     }
                     else {
                         try {
                             JSONObject jObjError = new JSONObject(response.errorBody().string());
-                            SignUpView.onRegisterResult(false, jObjError.getString("msg"), user);
+                            signUpViewInterface.onRegisterResult(false, jObjError.getString("msg"), user);
                         } catch (Exception e) {
-                            SignUpView.onRegisterResult(false, "Se encontro un error en el sistema, contactar con un administrador", user);
+                            signUpViewInterface.onRegisterResult(false, "Se encontro un error en el sistema, contactar con un administrador", user);
                         }
-                        SignUpView.onRegisterResult(false, "Credenciales Incorrectas", user);
+                        signUpViewInterface.onRegisterResult(false, "Credenciales Incorrectas", user);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<SignUpResponse> call, Throwable t) {
-                    SignUpView.onRegisterResult(false, "Se encontro un error en el sistema, contactar con un administrador", user);
+                    signUpViewInterface.onRegisterResult(false, "Se encontro un error en el sistema, contactar con un administrador", user);
                 }
             });
         } catch (Exception e)  {
@@ -89,7 +103,7 @@ public class SignUpPresenter implements SignUpPresenterInterface {
 
     @Override
     public void setProgressBarVisiblity(int visiblity){
-        SignUpView.onSetProgressBarVisibility(visiblity);
+        signUpViewInterface.onSetProgressBarVisibility(visiblity);
     }
 
     private void initUser(){

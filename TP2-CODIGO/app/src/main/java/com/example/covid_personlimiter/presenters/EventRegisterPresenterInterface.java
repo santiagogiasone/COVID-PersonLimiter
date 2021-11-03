@@ -1,7 +1,9 @@
 package com.example.covid_personlimiter.presenters;
 
-import com.example.covid_personlimiter.model.UserModel;
+import android.content.Context;
 
 public interface EventRegisterPresenterInterface {
-    void doRegisterEvent(String type_events, String description);
+    void doRegisterEvent(String type_events, String description, Context context);
+    void checkConnection(Context context);
+
 }
