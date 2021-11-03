@@ -10,20 +10,11 @@
     android:fitsSystemWindows="true"
     tools:context=".views.SignUpActivity">
 
-    <Button
-        android:id="@+id/btnGoBack"
-        android:layout_width="47dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:navigationIcon="@drawable/ic_back">
-    </androidx.appcompat.widget.Toolbar>
+        android:background="@android:color/transparent"></androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"

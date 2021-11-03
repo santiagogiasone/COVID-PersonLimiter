@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         password = (EditText) findViewById(R.id.et_password);
         confirmPassword = (EditText) findViewById(R.id.et_confirm_password);
         signUpButton = (Button) findViewById(R.id.button_signup);
-        goBackButton = (Button) findViewById(R.id.btnGoBack);
+        //goBackButton = (Button) findViewById(R.id.btnGoBack);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         nameRequiered = (TextView) this.findViewById(R.id.nameRequiered);

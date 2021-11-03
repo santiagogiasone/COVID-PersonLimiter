@@ -80,7 +80,7 @@ public class MainPresenter implements SensorEventListener {
                     double changeInAcc = Math.abs(currentValueAcc - previousValueAcc);
                     previousValueAcc = currentValueAcc;
 
-                    if (changeInAcc > 20) {
+                    if (changeInAcc > 10) {
                         activity.resetCounter();
                     }
                     break;
