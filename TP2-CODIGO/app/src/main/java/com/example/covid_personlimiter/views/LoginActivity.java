@@ -2,7 +2,6 @@ package com.example.covid_personlimiter.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,13 +25,16 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     private Button   btnSignUp;
     private ProgressBar progressBar;
     private LoginPresenter loginPresenter;
-    private int loginSuccess = 0;
-    private int loginFailed = 0;
+    private int loginSuccess;
+    private int loginFailed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginactivity);
+
+        loginSuccess = 0;
+        loginFailed = 0;
 
         //find view
         editUser = (EditText) this.findViewById(R.id.mail);
@@ -115,6 +117,22 @@ public class LoginActivity extends AppCompatActivity implements LoginViewInterfa
     public void onSetProgressBarVisibility(int visibility) {
         progressBar.setVisibility(visibility);
     }
+
+    @Override
+    public void onStart() {
+        loginSuccess = 0;
+        loginFailed = 0;
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        loginSuccess = 0;
+        loginFailed = 0;
+        super.onResume();
+    }
+
+
 
     @Override
     public void enableButton(Button button) {

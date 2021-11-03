@@ -21,6 +21,8 @@ public class MainActivity extends Activity implements LoggedOnInterface {
     //Buttons
     private Button buttonPlus;
     private Button buttonMinus;
+    private Button buttonClearLogins;
+
 
     //Texts
     private TextView counter;
@@ -28,6 +30,9 @@ public class MainActivity extends Activity implements LoggedOnInterface {
     private TextView temperature;
     private TextView aforo;
     private TextView capacityReal;
+    private TextView loginSuccess;
+    private TextView loginFailed;
+
 
     //Contador
     private Integer contadorPersonas = 0;
@@ -39,6 +44,10 @@ public class MainActivity extends Activity implements LoggedOnInterface {
     //Presenter
     private MainPresenter mainPresenter;
     private EventRegisterPresenter eventRegisterPresenter;
+
+    //SharedPreferences
+    private SharedPreferencesThread spThread;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +62,8 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         //Definicion de los botones
         buttonPlus = (Button) findViewById(R.id.buttonPlus);
         buttonMinus = (Button) findViewById(R.id.buttonMinus);
+        buttonClearLogins = (Button) findViewById(R.id.buttonClearLogins);
+
 
         //Definicion de los textos variables de la app.
         counter = (TextView) findViewById(R.id.counter);
@@ -78,12 +89,15 @@ public class MainActivity extends Activity implements LoggedOnInterface {
 
 
         //SharedPreferences
-        SharedPreferencesThread spThread = new SharedPreferencesThread(this.getBaseContext(), extras.getInt("loginSuccess"),extras.getInt("loginFailed"));
-        spThread.savePreferences();
+        spThread = new SharedPreferencesThread(this.getBaseContext());
+        spThread.savePreferences(extras.getInt("loginSuccess"),extras.getInt("loginFailed"));
         String a = spThread.getPreferences();
         Log.d("LOGUEOS:",a);
 
-
+        loginSuccess = (TextView) findViewById(R.id.loginSuccess);
+        setLoginsSuccess(spThread.getLoginsSuccess());
+        loginFailed = (TextView) findViewById(R.id.loginFailed);
+        setLoginsFailed(spThread.getLoginsFailed());
 
         String txt = "";
         float temperature = 10;
@@ -91,9 +105,6 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         setTemperature(txt);
         setAforo(calcularAforo(temperature));
         setCapacityReal(calcularCapacityReal(temperature,getCapacidadMaxima()));
-
-
-
 
     }
 
@@ -141,6 +152,14 @@ public class MainActivity extends Activity implements LoggedOnInterface {
             contadorPersonas = mainPresenter.add(contadorPersonas);
             counter.setText(contadorPersonas.toString());
         });
+
+        buttonClearLogins.setOnClickListener(v -> {
+            spThread.clearFile();
+            setLoginsSuccess(0);
+            setLoginsFailed(0);
+        });
+
+
     }
 
     public void setTemperature(String temperature)  {
@@ -156,6 +175,18 @@ public class MainActivity extends Activity implements LoggedOnInterface {
     public void setCapacityReal(String capacityReal) {
         Log.d("CAPACIDAD REAL: ", capacityReal);
         this.capacityReal.setText(capacityReal);
+    }
+
+    public void setLoginsSuccess(int loginsSuccess) {
+        Integer lS = loginsSuccess;
+        Log.d("LOGUEOS EXITOSOS: ", lS.toString());
+        this.loginSuccess.setText(lS.toString());
+    }
+
+    public void setLoginsFailed(int loginsFailed) {
+        Integer lF = loginsFailed;
+        Log.d("LOGUEOS FALLIDOS: ", lF.toString());
+        this.loginFailed.setText(lF.toString());
     }
 
     public void resetCounter()  {
