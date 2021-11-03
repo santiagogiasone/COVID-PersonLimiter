@@ -55,7 +55,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         password = (EditText) findViewById(R.id.et_password);
         confirmPassword = (EditText) findViewById(R.id.et_confirm_password);
         signUpButton = (Button) findViewById(R.id.button_signup);
-        //goBackButton = (Button) findViewById(R.id.btnGoBack);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         nameRequired = (TextView) this.findViewById(R.id.name_required);
         lastnameRequired = (TextView) this.findViewById(R.id.lastname_required);
@@ -118,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
         if (success){
             onClearText();
             Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(SignUpActivity.this,LoginActivity.class);
+            Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
             intent.putExtra("user", user);
             startActivity(intent);
             finish();
