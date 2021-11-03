@@ -5,6 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/capacityReal"
+        android:layout_width="48dp"
+        android:layout_height="19dp"
+        android:layout_marginBottom="58dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textCapacityReal" />
+
     <Button
         android:id="@+id/buttonMinus"
         android:layout_width="80dp"
@@ -14,6 +22,16 @@
         android:text="-"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonClearLogins"
+        android:layout_width="95dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="171dp"
+        android:text="Clear Logins"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/buttonPlus"
@@ -41,68 +59,100 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginBottom="65dp"
+        android:layout_marginBottom="112dp"
         android:text="Temperatura Actual: "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textCapacity"
+        android:id="@+id/textCapacidadLugar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginBottom="34dp"
-        android:text="Aforo Permitido: "
+        android:layout_marginBottom="140dp"
+        android:text="Capacidad Lugar:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <View
-        android:id="@+id/viewCounter"
-        android:layout_width="166dp"
-        android:layout_height="117dp"
-        android:layout_marginStart="127dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginBottom="147dp"
+    <TextView
+        android:id="@+id/textLoginFailed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="168dp"
+        android:text="Logueos Fallidos: "
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonPlus"
-        app:layout_constraintStart_toEndOf="@+id/buttonMinus" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textLoginSuccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="196dp"
+        android:text="Logueos Exitosos: "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/aforo"
+        android:layout_width="48dp"
+        android:layout_height="19dp"
+        android:layout_marginBottom="84dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textAforo" />
 
     <TextView
         android:id="@+id/temperature"
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="65dp"
+        android:layout_width="83dp"
+        android:layout_height="19dp"
+        android:layout_marginBottom="112dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textTemperature" />
 
     <TextView
-        android:id="@+id/capacity"
+        android:id="@+id/capacityMax"
         android:layout_width="48dp"
-        android:layout_height="19dp"
-        android:layout_marginBottom="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="140dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textCapacity" />
+        app:layout_constraintStart_toEndOf="@+id/textCapacidadLugar" />
 
     <TextView
-        android:id="@+id/username"
-        android:layout_width="130dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="299dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="302dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/loginFailed"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="168dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textLoginFailed" />
 
     <TextView
-        android:id="@+id/counter"
-        android:layout_width="125dp"
-        android:layout_height="53dp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewCounter"
-        app:layout_constraintEnd_toEndOf="@+id/viewCounter"
-        app:layout_constraintStart_toStartOf="@+id/viewCounter"
-        app:layout_constraintTop_toTopOf="@+id/viewCounter" />
+        android:id="@+id/loginSuccess"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="196dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textLoginSuccess" />
+
+    <TextView
+        android:id="@+id/textAforo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="84dp"
+        android:text="Aforo Permitido: "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textCapacityReal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="58dp"
+        android:text="Capacidad Real Actual:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -112,5 +162,15 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textWelcomeBack" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

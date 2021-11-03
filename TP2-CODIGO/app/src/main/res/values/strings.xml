@@ -1,35 +1,49 @@
 <resources>
     <string name="app_name">COVID-PersonLimiter</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_pattern">Limitador de Personas COVID</string>
+    <string name="title_activity_login">Ingresar</string>
+    <string name="title_activity_signup">Registrarse</string>
+    <string name="title_activity_main">Portal COVID</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="action_sign_in_short">Ingresar</string>
+    <string name="welcome">"Bienvenido !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="hint_username">Username</string>
-    <string name="hint_password">Password</string>
-    <string name="button_sign_in">Sign in</string>
-    <string name="button_sign_up">Sign up</string>
-    <string name="button_send">Send</string>
-    <string name="text_forgot_password">Forgot password?</string>
-    <string name="text_signin_message">Hello, sign in to your account</string>
-    <string name="text_signin_social_media">Or Sign in using social media</string>
-    <string name="text_signup_social_media">Or Sign up using social media</string>
-    <string name="text_signin_signup">
-Don\'t have an account?
-<b>Sign up</b>
-</string>
-    <string name="text_signup_terms">
-By signing up, you agree to our
-<b>terms and conditions</b>
-</string>
-    <string name="text_signup_message">Hello, let\'s set up your account</string>
-    <string name="text_forgot_password_title">Forgot password? No worries</string>
-    <string name="text_forgot_password_message">We will send you a link to reset your password</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_lastname">Apellido</string>
+    <string name="hint_dni">DNI</string>
+    <string name="hint_username">Nombre de Usuario</string>
+    <string name="hint_password">Contraseña</string>
     <string name="hint_email">Email</string>
     <string name="hint_phone">Phone</string>
     <string name="hint_confirm_password">Confirm Password</string>
+    <string name="button_sign_in">Ingresar</string>
+    <string name="button_sign_up">Registrarse</string>
+    <string name="button_send">Send</string>
+    <string name="text_forgot_password">Forgot password?</string>
+    <string name="text_signin_message">Hola! Ingresa con tu usuario y contraseña</string>
+    <string name="text_signin_social_media">Or Sign in using social media</string>
+    <string name="text_signup_social_media">Or Sign up using social media</string>
+    <string name="text_signin_signup">¿No tenes una cuenta?</string>
+    <string name="email_required">El Email es requerido</string>
+    <string name="password_required">La Contraseña es requerida</string>
+    <string name="name_required">El Nombre es requerido</string>
+    <string name="lastname_required">El Apellido es requerido</string>
+    <string name="confirm_password_does_not_match">Las Contraseñas deben coincidir</string>
+    <string name="dni_required">El DNI es requerido</string>
+    <string name="pattern_text">¡Bienvenido! Ingrese el patron de desbloqueo de la aplicacion</string>
+    <string name="desired_pattern">0124678</string>
+    <string name="env">PROD</string>
+    <integer name="commision">3900</integer>
+    <integer name="group">17</integer>
+    <string name="text_signup_terms">
+Al registrarse, usted acepta nuestros
+<b>terminos y condiciones</b>
+</string>
+    <string name="text_signup_message">Hola, configuremos tu cuenta!</string>
+    <string name="text_forgot_password_title">Forgot password? No worries</string>
+    <string name="text_forgot_password_message">We will send you a link to reset your password</string>
 </resources>
