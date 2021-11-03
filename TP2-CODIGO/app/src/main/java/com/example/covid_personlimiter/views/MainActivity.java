@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.example.covid_personlimiter.R;
+import com.example.covid_personlimiter.model.SharedPreferencesThread;
 import com.example.covid_personlimiter.model.UserModel;
 import com.example.covid_personlimiter.presenters.EventRegisterPresenter;
 import com.example.covid_personlimiter.presenters.MainPresenter;
@@ -65,23 +66,33 @@ public class MainActivity extends Activity implements LoggedOnInterface {
         capacityReal = (TextView) findViewById(R.id.capacityReal);
 
         intent = getIntent();
+        Bundle extras = intent.getExtras();
         user = (UserModel) intent.getSerializableExtra("user");
         Log.d("RESPONSE:", user.getUserId());
         Log.d("RESPONSE:", user.getDisplayName());
         Log.d("RESPONSE:", user.getToken());
         Log.d("RESPONSE:", user.getRefreshToken());
 
-        //user.generateNewToken(this);
-
         eventRegisterPresenter = new EventRegisterPresenter(user, this);
         eventRegisterPresenter.doRegisterEvent("LOGIN","Registro del Login en onCreate method", this.getBaseContext());
-/*
+
+
+        //SharedPreferences
+        SharedPreferencesThread spThread = new SharedPreferencesThread(this.getBaseContext(), extras.getInt("loginSuccess"),extras.getInt("loginFailed"));
+        spThread.savePreferences();
+        String a = spThread.getPreferences();
+        Log.d("LOGUEOS:",a);
+
+
+        /*
         String txt = "";
         float temperature = 10;
         txt += temperature + "°C";
         setTemperature(txt);
         setAforo(calcularAforo(temperature));
         setCapacityReal(calcularCapacityReal(temperature,getCapacidadMaxima()));
+
+
 
  */
     }
@@ -127,7 +138,6 @@ public class MainActivity extends Activity implements LoggedOnInterface {
             contadorPersonas = mainPresenter.add(contadorPersonas);
             counter.setText(contadorPersonas.toString());
         });
-
     }
 
     public void setTemperature(String temperature)  {

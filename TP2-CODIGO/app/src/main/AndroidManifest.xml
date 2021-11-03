@@ -18,9 +18,9 @@
             android:label="@string/title_activity_pattern"
             android:screenOrientation="portrait">
             <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
