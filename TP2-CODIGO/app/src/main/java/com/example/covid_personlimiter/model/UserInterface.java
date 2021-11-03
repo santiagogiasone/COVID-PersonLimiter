@@ -20,5 +20,5 @@ public interface UserInterface {
 
     Boolean isTokenExpired();
 
-    void generateNewToken(LoggedOnInterface ilogged);
+    void verifyToken(LoggedOnInterface ilogged, RefreshCallback callback);
 }

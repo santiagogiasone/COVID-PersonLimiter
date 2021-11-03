@@ -1,5 +1,7 @@
 package com.example.covid_personlimiter.model;
 
+import android.util.Log;
+
 import com.auth0.android.jwt.JWT;
 import com.example.covid_personlimiter.model.network.RetrofitInstance;
 import com.example.covid_personlimiter.model.responses.RefreshResponse;
@@ -34,28 +36,34 @@ public class UserModel implements UserInterface, Serializable {
     }
 
     @Override
-    public void generateNewToken(LoggedOnInterface ilogged) {
-        RetrofitInstance retrofitInstance = new RetrofitInstance();
-        Retrofit retrofit = retrofitInstance.getRetrofitInstance();
-        RefreshService refreshService = retrofit.create(RefreshService.class);
-        Call<RefreshResponse> call = refreshService.api_refresh("Bearer " + refreshToken);
-        call.enqueue(new Callback<RefreshResponse>() {
-            @Override
-            public void onResponse(Call<RefreshResponse> call, Response<RefreshResponse> response) {
-                if (response.isSuccessful()) {
-                    token = (response.body().getToken());
-                    refreshToken = (response.body().getToken_refresh());
+    public void verifyToken(LoggedOnInterface ilogged, RefreshCallback callback) {
+        if (isTokenExpired()) {
+            RetrofitInstance retrofitInstance = new RetrofitInstance();
+            Retrofit retrofit = retrofitInstance.getRetrofitInstance();
+            RefreshService refreshService = retrofit.create(RefreshService.class);
+            Call<RefreshResponse> call = refreshService.api_refresh("Bearer " + refreshToken);
+            call.enqueue(new Callback<RefreshResponse>() {
+                @Override
+                public void onResponse(Call<RefreshResponse> call, Response<RefreshResponse> response) {
+                    if (response.isSuccessful()) {
+                        Log.d("RESPONSE", "NUEVO TOKEN");
+                        Log.d("RESPONSE", token);
+                        token = (response.body().getToken());
+                        refreshToken = (response.body().getToken_refresh());
+                        callback.done();
+                    } else {
+                        ilogged.goToLogin("Sesion Expirada");
+                    }
                 }
-                else {
+
+                @Override
+                public void onFailure(Call<RefreshResponse> call, Throwable t) {
                     ilogged.goToLogin("Sesion Expirada");
                 }
-            }
-
-            @Override
-            public void onFailure(Call<RefreshResponse> call, Throwable t) {
-                ilogged.goToLogin("Sesion Expirada");
-            }
-        });
+            });
+            return;
+        }
+        callback.done();
     }
 
     @Override
