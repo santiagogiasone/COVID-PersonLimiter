@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.covid_personlimiter.R;
 import com.example.covid_personlimiter.model.UserModel;
@@ -87,6 +86,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpViewInter
             if (v.getId() == R.id.button_signup) {
                 presenter.setProgressBarVisiblity(View.VISIBLE);
                 signUpButton.setEnabled(false);
+                presenter.checkConnection(this.getBaseContext());
                 presenter.doSignUp(name.getText().toString(), lastName.getText().toString(), Integer.parseInt(dni.getText().toString()), mail.getText().toString(), password.getText().toString());
             }
         }
