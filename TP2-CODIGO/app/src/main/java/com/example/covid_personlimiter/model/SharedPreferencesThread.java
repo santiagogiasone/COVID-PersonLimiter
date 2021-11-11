@@ -12,12 +12,13 @@ public class SharedPreferencesThread extends Thread {
         this.sharedPreferences = context.getSharedPreferences(SHAREDPREFERENCESFILE, context.MODE_PRIVATE);
     }
 
-    public void savePreferences(int loginSuccess, int loginFailed) {
+    public synchronized void savePreferences(int loginSuccess, int loginFailed) {
         int loginsSuccess = getLoginsSuccess() + loginSuccess;
         int loginsFailed = getLoginsFailed() + loginFailed;
         run(loginsSuccess, loginsFailed);
     }
-    public String getPreferences() {
+
+    public synchronized String getPreferences() {
         Integer loginSuccesfull = getLoginsSuccess();
         Integer loginFailed = getLoginsFailed();
         String loginsSuccesfull = "Logueos exitosos: "+loginSuccesfull.toString();
@@ -25,22 +26,22 @@ public class SharedPreferencesThread extends Thread {
         return loginsSuccesfull+loginsFailed;
     }
 
-    public int getLoginsSuccess () {
+    public synchronized int getLoginsSuccess () {
         return this.sharedPreferences.getInt("Logueos Exitosos",0);
     }
 
-    public int getLoginsFailed() {
+    public synchronized int getLoginsFailed() {
         return this.sharedPreferences.getInt("Logueos Fallidos",0);
     }
 
-    public void run(int loginSuccess, int loginFailed) {
+    public synchronized void run(int loginSuccess, int loginFailed) {
         SharedPreferences.Editor editor = this.sharedPreferences.edit();
         editor.putInt("Logueos Exitosos",loginSuccess);
         editor.putInt("Logueos Fallidos",loginFailed);
         editor.apply();
     }
 
-    public void clearFile() {
+    public synchronized void clearFile() {
         SharedPreferences.Editor editor = this.sharedPreferences.edit();
         editor.putInt("Logueos Exitosos",0);
         editor.putInt("Logueos Fallidos",0);
