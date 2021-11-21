@@ -6,7 +6,7 @@
       "name": "Untitled0.ipynb",
       "provenance": [],
       "collapsed_sections": [],
-      "authorship_tag": "ABX9TyPw1OBOP59Pasg2hsOoNhW/",
+      "authorship_tag": "ABX9TyMhgJC3ih8EpnoVfNn/l42m",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -322,7 +322,7 @@
           "height": 608
         },
         "id": "GS8u70EiIOF8",
-        "outputId": "eeb2fbe0-a711-4347-d70e-bfae2ba8bd43"
+        "outputId": "b7825a2b-31e4-45e5-e6ed-d665ccb8f2be"
       },
       "source": [
         "%matplotlib inline\n",
@@ -423,20 +423,20 @@
         "\n",
         "tiempo_total = datetime.now() - tiempo_total\n",
         "\n",
-        "print(\"Tiempo TOTAL: \", tiempo_en_ms( tiempo_total ), \"[ms]\" )\n",
-        "print(\"Tiempo GPU  : \", tiempo_en_ms( tiempo_img ), \"[ms]\" )"
+        "print(\"Tiempo GPU  : \", tiempo_en_ms( tiempo_img ), \"[ms]\" )\n",
+        "print(\"Tiempo TOTAL: \", tiempo_en_ms( tiempo_total ), \"[ms]\" )"
       ],
-      "execution_count": 28,
+      "execution_count": 31,
       "outputs": [
         {
           "output_type": "stream",
           "name": "stdout",
           "text": [
             "Imagen del filtro: imagen.jpg -RGB- [1024, 768]\n",
-            "Thread: [ 16 , 12  ], Bloque : [ 64 , 64 ]\n",
+            "Thread: [ 32 , 24  ], Bloque : [ 32 , 32 ]\n",
             "Total de Thread: [ 1024 , 768  ]  =  786432\n",
-            "Tiempo TOTAL:  104.591 [ms]\n",
-            "Tiempo GPU  :  0.237 [ms]\n"
+            "Tiempo GPU  :  0.216 [ms]\n",
+            "Tiempo TOTAL:  159.41 [ms]\n"
           ]
         },
         {
@@ -471,7 +471,13 @@
         "id": "WVm7yJ8dunMY"
       },
       "source": [
-        "### Metricas"
+        "### **Metricas**\n",
+        "Tiempo en CPU=\n",
+        "Tiempo de conversión de imagen: 8881.05 [ms]\n",
+        "Tiempo Total: 8968.117 [ms]                   \n",
+        "Tiempo en GPU=\n",
+        "Tiempo GPU  :  0.237 [ms]\n",
+        "Tiempo TOTAL:  104.591 [ms]"
       ]
     },
     {
@@ -480,7 +486,8 @@
         "id": "t5MDCWFHvJuu"
       },
       "source": [
-        "### Conclusiones"
+        "### Conclusiones\n",
+        "El tiempo de procesamiento de la imagen en GPU es considerablemente menor, para este tipo de proyectos donde se realiza el mismo calculo repetidamente para una gran cantidad de datos es muy recomendable resolverlo con GPU ya que es una tarea paralelizable."
       ]
     },
     {
@@ -490,7 +497,8 @@
       },
       "source": [
         "### Bibliografia\n",
-        "https://github.com/wvaliente/SOA_HPC/blob/main/Ejercicios/Prueba%202%20-%20Imagen%20-%20GPU.ipynb\n"
+        "https://github.com/wvaliente/SOA_HPC/blob/main/Ejercicios/Prueba%202%20-%20Imagen%20-%20GPU.ipynb\n",
+        "https://programmerclick.com/article/1612326767/"
       ]
     }
   ]
